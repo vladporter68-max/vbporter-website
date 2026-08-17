@@ -51,6 +51,7 @@
         <li><a href="commercial.html" class="nav-btn">Commercial</a></li>
         <li><a href="residential.html" class="nav-btn nav-btn-alt">Residential</a></li>
         <li><a href="listings.html" aria-current="page">Listings</a></li>
+        <li><a href="https://sharedofficesnyc.com" target="_blank" rel="noopener">Shared Offices</a></li>
         <li><a href="contact.html" class="nav-cta">Contact</a></li>
       </ul>
     </nav>
@@ -84,7 +85,7 @@
       <p id="liveSuitesEmpty" class="live-suites-empty" style="display:none;">
         Live listings haven't been loaded yet on this device &mdash; run the suite scraper, or contact us directly for current availability.
       </p>
-      <p class="live-suites-note">Sourced from Industrious and Regus public listings, not LoopNet. Availability and pricing shown here are provider-reported and should be confirmed before quoting a client.</p>
+      <p class="live-suites-note">Availability and pricing shown here are provider-reported and should be confirmed before quoting a client.</p>
     </div>
   </section>
 
@@ -135,7 +136,7 @@
       </div>
       <div class="footer-col">
         <h4>Tools</h4>
-        <ul><li><a href="commercial.html#direct-space">Space Calculator</a></li><li><a href="listings.html">Listings</a></li></ul>
+        <ul><li><a href="commercial.html#direct-space">Space Calculator</a></li><li><a href="listings.html">Listings</a></li><li><a href="https://sharedofficesnyc.com" target="_blank" rel="noopener">Shared Offices</a></li></ul>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
@@ -176,9 +177,7 @@
       // directly. "Inquire" jumps to your own contact form instead.
       return `
         <div class="live-suite-card">
-          <div class="live-suite-photo" style="${photoStyle}">
-            <span class="live-suite-provider">${item.provider || ''}</span>
-          </div>
+          <div class="live-suite-photo" style="${photoStyle}"></div>
           <div class="live-suite-body">
             <h3>${item.name || 'Office Suite'}</h3>
             <div class="addr">${addr}</div>
