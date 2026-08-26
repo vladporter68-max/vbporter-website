@@ -36,6 +36,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* Photo styling for live suite cards -- added so every card shows a
+     clean, uniform photo with no dependency on style.css changes. */
+  .live-suite-photo{height:180px; background:var(--paper-alt); position:relative; overflow:hidden;}
+  .live-suite-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .live-suite-dots{position:absolute; bottom:10px; left:0; right:0; display:flex; justify-content:center; gap:5px;}
+  .live-suite-dot{width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.55); border:1px solid rgba(0,0,0,0.15);}
+  .live-suite-dot.active{background:#fff;}
+</style>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
@@ -154,6 +163,62 @@
 <script src="OfficePictures/listings-data.js" onerror="window.SUITE_LISTINGS = window.SUITE_LISTINGS || null;"></script>
 <script src="common.js"></script>
 <script>
+  // Auto photo matching: give every listing card a photo automatically.
+  // Real interior photos (up to 3 per building, across Industrious, Bevmax,
+  // Regus, Servcorp, Emerge212, excelsior, and studio) are matched to a
+  // listing by street number + street name; everything else falls back to
+  // a rotating set of professional stock photos, so no card is ever blank.
+  const INDUSTRIOUS_PHOTO_INDEX = [{"num": "1002", "words": ["dean", "brooklyn"], "photos": ["OfficePictures/Industrious/1002DeanStBrooklyn-PrivateOffice-649a184f2913d6070b2d4696.jpeg", "OfficePictures/Industrious/1002DeanStBrooklyn-ReceptionCommonArea-649a18352913d6070b2d468f.jpeg", "OfficePictures/Industrious/1002DeanStBrooklyn-CommonArea-649a18392913d6070b2d4690.jpeg"]}, {"num": "110", "words": ["42"], "photos": ["OfficePictures/Industrious/110East42St-PrivateOffice-690e60d30bf7b7b78a52a7c4.jpeg", "OfficePictures/Industrious/110East42St-CommonAreaReception-690e5f38611f2308a0a1b0ce.jpeg", "OfficePictures/Industrious/110East42St-MeetingRoom-690e5f5e0bf7b7b78a52a71b.jpeg"]}, {"num": "119", "words": ["24"], "photos": ["OfficePictures/Industrious/119West24St-PrivateOffice-649a1dbe2913d6070b2d4786.jpeg", "OfficePictures/Industrious/119West24St-CommonArea-649a1da42913d6070b2d4780.jpeg", "OfficePictures/Industrious/119West24St-MeetingRoom-649a1da82913d6070b2d4781.jpeg"]}, {"num": "11", "words": ["park", "place", "city", "hall"], "photos": ["OfficePictures/Industrious/11ParkPlaceCityHall-PrivateOffice-684ad9ff4d4f3d05075ccb9c.jpeg", "OfficePictures/Industrious/11ParkPlaceCityHall-Reception-684ada6b852da6911204bf25.jpeg", "OfficePictures/Industrious/11ParkPlaceCityHall-CommonArea-684ad9e94d4f3d05075ccb9b.jpeg"]}, {"num": "120", "words": ["23"], "photos": ["OfficePictures/Industrious/120East23St-PrivateOffice-69325e9eadcea3f8df75d00d.jpeg", "OfficePictures/Industrious/120East23St-Reception-69325fbaadcea3f8df75d011.jpeg", "OfficePictures/Industrious/120East23St-CommonArea-69325f7192ce3288b8a6538e.jpeg"]}, {"num": "12", "words": ["49"], "photos": ["OfficePictures/Industrious/12East49St-Tower49-Reception-694b0f0e3d895f457f371192.jpeg", "OfficePictures/Industrious/12East49St-Tower49-CommonArea-6917c052fb5a5e7746de0903.jpeg", "OfficePictures/Industrious/12East49St-Tower49-MeetingRoom-674f70ee0563abd53f0856d3.jpeg"]}, {"num": "1411", "words": ["broadway"], "photos": ["OfficePictures/Industrious/1411Broadway-PrivateOffice-649a1aa12913d6070b2d46fe.jpeg", "OfficePictures/Industrious/1411Broadway-Reception-649a1ab62913d6070b2d4703.jpeg", "OfficePictures/Industrious/1411Broadway-CommonArea-649a1a942913d6070b2d46fb.jpeg"]}, {"num": "183", "words": ["madison"], "photos": ["OfficePictures/Industrious/183MadisonAve-SuiteMeetingRoom-66b149642459d98b2d1b7327.jpeg", "OfficePictures/Industrious/183MadisonAve-SuiteWorkStations-66b149482459d98b2d1b7326.jpeg", "OfficePictures/Industrious/183MadisonAve-Kitchenette-66b149c0e7f707be274c68ee.jpeg"]}, {"num": "1900", "words": ["broadway"], "photos": ["OfficePictures/Industrious/1900Broadway-PrivateOffice-69a84f321ce7b8a8bfa93bfd.jpeg", "OfficePictures/Industrious/1900Broadway-ReceptionCommonArea-69a84efb1ce7b8a8bfa93bfb.jpeg", "OfficePictures/Industrious/1900Broadway-CafeCommonArea-69a84ba8727d890ad4eecd07.jpeg"]}, {"num": "190", "words": ["bowery"], "photos": ["OfficePictures/Industrious/190BowerySt-10desk-window.jpeg", "OfficePictures/Industrious/190BowerySt-5desk-window.jpeg", "OfficePictures/Industrious/190BowerySt-6a04b49f592910251f48971a.jpeg"]}, {"num": "200", "words": ["broadway", "fulton", "center"], "photos": ["OfficePictures/Industrious/200BroadwayFultonCenter-PrivateOffice-649a240b2913d6070b2d48c2.jpeg", "OfficePictures/Industrious/200BroadwayFultonCenter-CommonArea-649a23f32913d6070b2d48bc.jpeg", "OfficePictures/Industrious/200BroadwayFultonCenter-MeetingRoom-649a24152913d6070b2d48c5.jpeg"]}, {"num": "200", "words": ["41"], "photos": ["OfficePictures/Industrious/200West41St-PrivateOffice-695fd121bb945959d26dfd8f.jpeg", "OfficePictures/Industrious/200West41St-Reception-695fd1901a7926b10a853538.jpeg", "OfficePictures/Industrious/200West41St-CommonArea-695fd113bb945959d26dfd8e.jpeg"]}, {"num": "215", "words": ["park"], "photos": ["OfficePictures/Industrious/215ParkAveS-PrivateOffice-649a29d32913d6070b2d49c5.jpeg", "OfficePictures/Industrious/215ParkAveS-Reception-649a29e52913d6070b2d49c9.jpeg", "OfficePictures/Industrious/215ParkAveS-CommonArea-649a29df2913d6070b2d49c8.jpeg"]}, {"num": "250", "words": ["34"], "photos": ["OfficePictures/Industrious/250West34St-CommonArea-649a2d7e2913d6070b2d4a4e.jpeg", "OfficePictures/Industrious/250West34St-MeetingRoom-69c19b18c30a13b646deefa3.jpeg", "OfficePictures/Industrious/250West34St-Cafe-649a2d782913d6070b2d4a4d.jpeg"]}, {"num": "25", "words": ["39"], "photos": ["OfficePictures/Industrious/25West39St-PrivateOffice-649a12422913d6070b2d458a.jpeg", "OfficePictures/Industrious/25West39St-CommonArea-649a12342913d6070b2d4585.jpeg", "OfficePictures/Industrious/25West39St-MeetingRoom-649a123c2913d6070b2d4588.jpeg"]}, {"num": "261", "words": ["madison"], "photos": ["OfficePictures/Industrious/261MadisonAve-PrivateOffice-649a306e2913d6070b2d4ace.jpeg", "OfficePictures/Industrious/261MadisonAve-CommonArea-649a305a2913d6070b2d4aca.jpeg", "OfficePictures/Industrious/261MadisonAve-MeetingRoom-649a306a2913d6070b2d4acd.jpeg"]}, {"num": "28", "words": ["44"], "photos": ["OfficePictures/Industrious/28West44St-SuiteMeetingRoom-66b148dd8bf5dc7799091503.jpeg", "OfficePictures/Industrious/28West44St-SuiteWorkstations-66b148c2e7f707be274c68ec.jpeg"]}, {"num": "325", "words": ["hudson", "so", "ho"], "photos": ["OfficePictures/Industrious/325HudsonStSoHo-PrivateOffice-649a20c82913d6070b2d481f.jpeg", "OfficePictures/Industrious/325HudsonStSoHo-Reception-649a20da2913d6070b2d4824.jpeg", "OfficePictures/Industrious/325HudsonStSoHo-CommonArea-649a20cf2913d6070b2d4821.jpeg"]}, {"num": "356", "words": ["wythe", "brooklyn"], "photos": ["OfficePictures/Industrious/356WytheAveBrooklyn-PrivateOffice-66293a263c0e1033ffff3596.jpeg", "OfficePictures/Industrious/356WytheAveBrooklyn-Reception-662939593c0e1033ffff3593.jpeg", "OfficePictures/Industrious/356WytheAveBrooklyn-CommonArea-662938e85fa7268504091f84.jpeg"]}, {"num": "386", "words": ["park"], "photos": ["OfficePictures/Industrious/386ParkAveS-Reception-6997402fd75d602f479a4997.jpeg", "OfficePictures/Industrious/386ParkAveS-Office-window-office.jpeg"]}, {"num": "390", "words": ["park"], "photos": ["OfficePictures/Industrious/390ParkAve-PrivateOffice-6908c2d314873e653b322991.jpeg", "OfficePictures/Industrious/390ParkAve-Reception-68f8f8ac6203b4e1f5217833.jpeg", "OfficePictures/Industrious/390ParkAve-MeetingRoom-690a619a84acd5675c173bc4.jpeg"]}, {"num": "41", "words": ["11"], "photos": ["OfficePictures/Industrious/41East11St-PrivateOffice-649a2df52913d6070b2d4a62.jpeg", "OfficePictures/Industrious/41East11St-CommonArea-649a2dff2913d6070b2d4a63.jpeg", "OfficePictures/Industrious/41East11St-MeetingRoom-649a2de82913d6070b2d4a60.jpeg"]}, {"num": "540", "words": ["madison"], "photos": ["OfficePictures/Industrious/540MadisonAve-Reception-698ba929b559f7e44e1ec5cb.jpeg", "OfficePictures/Industrious/540MadisonAve-MeetingRoom-698ba90dc6d9c3fa233bede7.jpeg", "OfficePictures/Industrious/540MadisonAve-TenantLounge-698ba831b559f7e44e1ec563.jpeg"]}, {"num": "560", "words": ["lexington"], "photos": ["OfficePictures/Industrious/560LexingtonAve-PrivateOffice-68f133a575fac8b01460bdd6.jpeg", "OfficePictures/Industrious/560LexingtonAve-Reception-68f1342bbafc3c42cfe6c962.jpeg", "OfficePictures/Industrious/560LexingtonAve-CommonArea-68f132c1bafc3c42cfe6c8e3.jpeg"]}, {"num": "594", "words": ["dean", "brooklyn"], "photos": ["OfficePictures/Industrious/594DeanStBrooklyn-PrivateOffice-649a1d932913d6070b2d477e.jpeg", "OfficePictures/Industrious/594DeanStBrooklyn-CommonArea-649a1d7e2913d6070b2d4779.jpeg", "OfficePictures/Industrious/594DeanStBrooklyn-MeetingRoom-649a1d752913d6070b2d4777.jpeg"]}, {"num": "609", "words": ["greenwich"], "photos": ["OfficePictures/Industrious/609GreenwichSt-PrivateOffice-69a8b9411ce7b8a8bfa95fea.jpeg", "OfficePictures/Industrious/609GreenwichSt-Reception-69a8bb401ce7b8a8bfa96086.jpeg", "OfficePictures/Industrious/609GreenwichSt-CommonArea-69a8b696727d890ad4eeee05.jpeg"]}, {"num": "860", "words": ["broadway"], "photos": ["OfficePictures/Industrious/860Broadway-PrivateOffice-6553fdfed4de202060e149c8.jpeg", "OfficePictures/Industrious/860Broadway-CommonArea-6553fde2d4de202060e149c6.jpeg", "OfficePictures/Industrious/860Broadway-MeetingRoom-6553fe081657fa45a477f893.jpeg"]}, {"num": "875", "words": ["third"], "photos": ["OfficePictures/Industrious/875ThirdAve-Cafe-69df8cfbab6fa6bf165da0ac.jpeg"]}, {"num": "100", "words": ["church"], "photos": ["OfficePictures/Regus/100ChurchSt-PrivateOffice-1385_10.jpg", "OfficePictures/Regus/100ChurchSt-Reception-1385_2.jpg", "OfficePictures/Regus/100ChurchSt-CommonArea-1385_11.jpg"]}, {"num": "99", "words": ["hudson"], "photos": ["OfficePictures/Regus/99HudsonSt-Reception-1565_2.jpg", "OfficePictures/Regus/99HudsonSt-MeetingRoom-1565_1.jpg", "OfficePictures/Regus/99HudsonSt-ConferenceRoom-1565_11.jpg"]}, {"num": "405", "words": ["lexington"], "photos": ["OfficePictures/Regus/405LexingtonAve-Reception-1157_2.jpg", "OfficePictures/Regus/405LexingtonAve-MeetingRoom-1157_1.jpg", "OfficePictures/Regus/405LexingtonAve-ConferenceRoom-1157_3.jpg"]}, {"num": "100", "words": ["park"], "photos": ["OfficePictures/Regus/100ParkAve-Reception-1158_2_(2).jpg", "OfficePictures/Regus/100ParkAve-CommonArea-1158_4.jpg", "OfficePictures/Regus/100ParkAve-MeetingRoom-1158_10_(2).jpg"]}, {"num": "1250", "words": ["broadway"], "photos": ["OfficePictures/Regus/1250Broadway-Reception-2197_2.jpg", "OfficePictures/Regus/1250Broadway-CommonArea-2197_5.jpg", "OfficePictures/Regus/1250Broadway-MeetingRoom-2197_1.jpg"]}, {"num": "57", "words": [], "photos": ["OfficePictures/Regus/57West57St-Reception-1763_2.jpg", "OfficePictures/Regus/57West57St-CommonArea-1763_13.jpg", "OfficePictures/Regus/57West57St-MeetingRoom-1763_10.jpg"]}, {"num": "1325", "words": ["americas"], "photos": ["OfficePictures/Regus/1325AveOfAmericas-Reception-2153_2.jpg", "OfficePictures/Regus/1325AveOfAmericas-CommonArea-2153_1.jpg", "OfficePictures/Regus/1325AveOfAmericas-MeetingRoom-2153_10_(2).jpg"]}, {"num": "1501", "words": ["broadway"], "photos": ["OfficePictures/Bevmax/1501Broadway-west-reception-800x600.jpg", "OfficePictures/Bevmax/1501Broadway-office-space-interior-1-768x512.jpg", "OfficePictures/Bevmax/1501Broadway-Lobby-640x427.jpg"]}, {"num": "250", "words": ["55"], "photos": ["OfficePictures/Bevmax/250W55St-17Floor-office-1-1024x682.jpg", "OfficePictures/Bevmax/250W55St-17Floor-4desk-1024x777.jpg", "OfficePictures/Bevmax/250W55St-17Floor-5-1024x585.jpg"]}, {"num": "40", "words": ["worth"], "photos": ["OfficePictures/Bevmax/40WorthSt-Floor10-tribeca-reception-1024x681.jpg", "OfficePictures/Bevmax/40WorthSt-Floor10-tribeca-conferenceRoomLarge-gallery-6-scaled-1024x686.jpg", "OfficePictures/Bevmax/40WorthSt-Floor10-tribeca-cafe-1024x740.jpg"]}, {"num": "11", "words": ["42"], "photos": ["OfficePictures/studio/11W42St-3desk-f36fcea2616e7111c342c1cb4640d54ff42386d6-4928x3280.jpg"]}, {"num": "300", "words": ["park"], "photos": ["OfficePictures/studio/300ParkAve-2desk-ad277108981c0ea3c213249b6b4554bc22ae096a-3543x2362.jpg", "OfficePictures/studio/300ParkAve-2desk-e4e168126a481cf6712db03d7259ec11ac806290-3543x2362.jpg", "OfficePictures/studio/300ParkAve-3desk-57d4541ad3439b40ae178f30489619d0e8ed5739-3543x2362.jpg"]}, {"num": "1230", "words": ["americas"], "photos": ["OfficePictures/studio/1230AveOfAmericas-_4desk-9fbaed269cfb380b3d1409a0dbe18c9e46755195-8640x5760_(1).jpg", "OfficePictures/studio/1230AveOfAmericas-2desk-154ffd511026f9059157a4cfaad0d4e873cd2de6-5930x3953.jpg", "OfficePictures/studio/1230AveOfAmericas-2desk-f2cb50bd1d1fbe63b3365bce450d4d72f99b93be-5976x3984.jpg"]}, {"num": "175", "words": ["varick"], "photos": ["OfficePictures/studio/175VarickSt-1desk-55f59a60eeade582fae629027799ad4ae89fde30-1536x1024.png", "OfficePictures/studio/175VarickSt-2desk-483f97c2d6bc9d260a02e5c676ea7d321a79f822-5461x3641.png", "OfficePictures/studio/175VarickSt-2desk-cee0feb198f6f9c2a64c85d637684d628b876641-5472x3648.jpg"]}, {"num": "1330", "words": ["americas"], "photos": ["OfficePictures/Servcorp/1330AveOfTheAmericas-PrivateOffice-usa-3.avif", "OfficePictures/Servcorp/1330AveOfTheAmericas-Reception-usa-2.avif", "OfficePictures/Servcorp/1330AveOfTheAmericas-MeetingRoom-usa-4.avif"]}, {"num": "17", "words": ["state"], "photos": ["OfficePictures/Servcorp/17StateStreet-PrivateOffice-usa-10.avif", "OfficePictures/Servcorp/17StateStreet-Reception-usa-2.avif", "OfficePictures/Servcorp/17StateStreet-MeetingRoom-usa-4.avif"]}, {"num": "1185", "words": ["americas"], "photos": ["OfficePictures/Emerge212  Elevated/1185AveOfTheAmericas-CommonArea-1185_1-1280x853.jpg", "OfficePictures/Emerge212  Elevated/1185AveOfTheAmericas-MeetingRoom-4-1280x889.jpg", "OfficePictures/Emerge212  Elevated/1185AveOfTheAmericas-ConferenceRoom-1185_13-1280x853.jpg"]}, {"num": "125", "words": ["park"], "photos": ["OfficePictures/Emerge212  Elevated/125ParkAve-Reception-125_1-1280x853.jpg", "OfficePictures/Emerge212  Elevated/125ParkAve-CafeCommonArea-125_6-1280x817.jpg", "OfficePictures/Emerge212  Elevated/125ParkAve-MeetingRoom-125_10-1280x853.jpg"]}, {"num": "717", "words": ["fifth"], "photos": ["OfficePictures/excelsior/717FifthAve-receptionist-1024x683.jpg", "OfficePictures/excelsior/717FifthAve-Private-Office-View.jpeg", "OfficePictures/excelsior/717FifthAve-Team-Room-View.jpeg"]}];
+  const STOCK_PHOTOS = [
+    "https://images.unsplash.com/photo-1606836576983-8b458e75221d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1758448093806-88b2089068ab?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1667646639495-8865f3ea638b?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1723810388971-f8cd6474597f?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1758448756084-c44d73014c07?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1758448500688-3ababa93fd67?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1646592491578-01b3053d9053?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1761735486549-7a6a04e67061?auto=format&fit=crop&w=800&q=80"
+  ];
+  const ADDR_STOP = new Set(['st','street','ave','avenue','floor','fl','the','of','th','nd','rd','and','a','east','west']);
+  function addrTokens(s){
+    if (!s) return [];
+    const words = (s.toLowerCase().match(/[a-z]+|\d+/g)) || [];
+    return words.filter(w => !ADDR_STOP.has(w) && w.length > 1);
+  }
+  function findIndustriousPhotos(address){
+    const toks = addrTokens(address);
+    const num = toks.find(t => /^\d+$/.test(t));
+    if (!num) return null;
+    const rest = toks.filter(t => t !== num);
+    for (const entry of INDUSTRIOUS_PHOTO_INDEX){
+      if (entry.num !== num) continue;
+      if (entry.words.some(w => rest.includes(w))) return entry.photos;
+    }
+    return null;
+  }
+  function hashStr(s){
+    let h = 0;
+    for (let i = 0; i < s.length; i++){ h = ((h << 5) - h + s.charCodeAt(i)) | 0; }
+    return Math.abs(h);
+  }
+  function getListingPhotos(item, idx){
+    try {
+      const clean = (item.photos || []).filter(p => !!p);
+      if (clean.length) return clean;
+      const matched = findIndustriousPhotos(item.address);
+      if (matched && matched.length) return matched;
+    } catch (e) { /* fall through to guaranteed stock fallback below */ }
+    const key = (item && item.address) ? item.address : String(idx);
+    return [STOCK_PHOTOS[hashStr(key) % STOCK_PHOTOS.length]];
+  }
+  function stockFallbackFor(item, idx){
+    const key = (item && item.address) ? item.address : String(idx);
+    return STOCK_PHOTOS[hashStr(key) % STOCK_PHOTOS.length];
+  }
+
 // Live Office Suite Availability (rendered from OfficePictures/listings-data.js if present)
   (function renderLiveSuites(){
     const grid = document.getElementById('liveSuitesGrid');
@@ -166,8 +231,11 @@
     }
 
     grid.innerHTML = listings.map((item, idx) => {
-      const photo = (item.photos && item.photos[0]) ? item.photos[0] : '';
-      const photoStyle = photo ? `background-image:url('${photo}');` : '';
+      const photos = getListingPhotos(item, idx);
+      const fallback = stockFallbackFor(item, idx);
+      const dots = photos.length > 1
+        ? `<div class="live-suite-dots">${photos.map((_, i) => `<span class="live-suite-dot${i === 0 ? ' active' : ''}"></span>`).join('')}</div>`
+        : '';
       const price = item.priceText ? item.priceText : 'Price on request';
       const desc = item.description || '';
       const addr = item.address || 'Address on request';
@@ -175,9 +243,15 @@
       // Deliberately no external link to the provider's own site here --
       // every inquiry should come to you, not bypass you to Regus/Industrious
       // directly. "Inquire" jumps to your own contact form instead.
+      // Provider name is intentionally never shown publicly, same reasoning
+      // as sharedofficesnyc.com -- renters shouldn't be able to identify
+      // the provider and go around you.
       return `
-        <div class="live-suite-card">
-          <div class="live-suite-photo" style="${photoStyle}"></div>
+        <div class="live-suite-card" data-photos='${JSON.stringify(photos).replace(/'/g, "&#39;")}' data-idx="0" data-fallback="${fallback}">
+          <div class="live-suite-photo">
+            <img src="${photos[0]}" alt="" loading="lazy" onerror="this.onerror=null;this.src=this.closest('.live-suite-card').dataset.fallback;">
+            ${dots}
+          </div>
           <div class="live-suite-body">
             <h3>${item.name || 'Office Suite'}</h3>
             <div class="addr">${addr}</div>
@@ -189,6 +263,21 @@
           </div>
         </div>`;
     }).join('');
+
+    // Click a photo with more than one image to cycle through them.
+    grid.querySelectorAll('.live-suite-card').forEach(card => {
+      const photos = JSON.parse(card.dataset.photos || '[]');
+      if (photos.length < 2) return;
+      const img = card.querySelector('.live-suite-photo img');
+      const dots = card.querySelectorAll('.live-suite-dot');
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', () => {
+        let i = (parseInt(card.dataset.idx, 10) + 1) % photos.length;
+        card.dataset.idx = i;
+        img.src = photos[i];
+        dots.forEach((d, di) => d.classList.toggle('active', di === i));
+      });
+    });
 
     // Clicking "Inquire" pre-fills the contact form's message with the
     // specific listing, so the lead comes to you with context attached.

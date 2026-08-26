@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OfficeSearch</title>
+
+<!-- iPhone "Add to Home Screen" support -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="OfficeSearch">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1F3864">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #1F3864;
+    --navy-deep: #14213D;
+    --navy-mid: #2A4A80;
+    --coral: #D9663B;
+    --coral-deep: #A84726;
+    --paper: #F5F3EE;
+    --surface: #FFFFFF;
+    --ink: #1A2332;
+    --slate: #5C6470;
+    --slate-soft: #8A94A1;
+    --hairline: #E4E1D8;
+    --hairline-cool: #E2E6EB;
+    --success: #1E7B3C;
+    --success-bg: #E9F7EE;
+    --warn: #8A6D00;
+    --warn-bg: #FFF6DD;
+    --error: #A22222;
+    --error-bg: #FCEAEA;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  html, body { margin:0; padding:0; background:var(--paper); -webkit-text-size-adjust:100%; font-family: var(--font-body); }
+</style>
+</head>
+<body>
+<div id="app-root"></div>
+<script id="xlsxScript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+<script>
+(function(){
+try {
+
+// ---------- Manhattan grid logic (ported from manhattan_grid.py) ----------
+const AVENUE_ORDER = ["12th Ave","11th Ave","10th Ave","9th Ave","8th Ave","7th Ave",
+  "6th Ave","5th Ave","Madison Ave","Park Ave","Lexington Ave","3rd Ave","2nd Ave","1st Ave","York Ave"];
+const AVENUE_INDEX = {}; AVENUE_ORDER.forEach((a,i)=>AVENUE_INDEX[a]=i);
+
+const AVENUE_ALIASES = {
+  "12th avenue":"12th Ave","12th ave":"12th Ave","twelfth avenue":"12th Ave","twelfth ave":"12th Ave",
+  "11th avenue":"11th Ave","11th ave":"11th Ave","eleventh avenue":"11th Ave","eleventh ave":"11th Ave",
+  "10th avenue":"10th Ave","10th ave":"10th Ave","tenth avenue":"10th Ave","tenth ave":"10th Ave",
+  "9th avenue":"9th Ave","9th ave":"9th Ave","ninth avenue":"9th Ave","ninth ave":"9th Ave",
+  "8th avenue":"8th Ave","8th ave":"8th Ave","eighth avenue":"8th Ave","eighth ave":"8th Ave",
+  "7th avenue":"7th Ave","7th ave":"7th Ave","seventh avenue":"7th Ave","seventh ave":"7th Ave",
+  "6th avenue":"6th Ave","6th ave":"6th Ave","sixth avenue":"6th Ave","sixth ave":"6th Ave",
+  "avenue of the americas":"6th Ave","ave of americas":"6th Ave","ave of the americas":"6th Ave","avrnue of the americas":"6th Ave","avrnue of americas":"6th Ave",
+  "5th avenue":"5th Ave","5th ave":"5th Ave","fifth avenue":"5th Ave","fifth ave":"5th Ave","fith avenue":"5th Ave","fith ave":"5th Ave",
+  "4th avenue":"4th Ave","4th ave":"4th Ave","fourth avenue":"4th Ave","fourth ave":"4th Ave",
+  "madison avenue":"Madison Ave","madison ave":"Madison Ave",
+  "park avenue south":"Park Ave","park ave south":"Park Ave","park avenue":"Park Ave","park ave":"Park Ave","park avnue south":"Park Ave","park avnue":"Park Ave",
+  "lexington avenue":"Lexington Ave","lexington ave":"Lexington Ave","lex ave":"Lexington Ave",
+  "3rd avenue":"3rd Ave","3rd ave":"3rd Ave","third ave":"3rd Ave","third avenue":"3rd Ave",
+  "2nd avenue":"2nd Ave","2nd ave":"2nd Ave","second avenue":"2nd Ave","second ave":"2nd Ave",
+  "1st avenue":"1st Ave","1st ave":"1st Ave","first avenue":"1st Ave","first ave":"1st Ave",
+  "york avenue":"York Ave","york ave":"York Ave",
+};
+
+const FORMULAS = {
+  "1st Ave": n=>n/20+3, "2nd Ave": n=>n/20+3, "3rd Ave": n=>n/20+10,
+  "5th Ave": n=>{
+    if(n>=63&&n<=108) return n/20+11;
+    if(n>=109&&n<=200) return n/20+13;
+    if(n>=201&&n<=400) return n/20+16;
+    if(n>=401&&n<=600) return n/20+18;
+    if(n>=601&&n<=775) return n/20+20;
+    if(n>=776&&n<=1286) return n/10-18;
+    if(n>=1287&&n<=1500) return n/20+45;
+    if(n>=1501&&n<=2000) return n/20+24;
+    return n/20+18;
+  },
+  "6th Ave": n=>n/20-12,
+  "7th Ave": n=> n<=1800 ? n/20+12 : n/20+20,
+  "8th Ave": n=>n/20+9, "9th Ave": n=>n/20+13, "10th Ave": n=>n/20+14, "11th Ave": n=>n/20+15,
+  "Lexington Ave": n=>n/20+22, "Madison Ave": n=>n/20+27, "Park Ave": n=>n/20+35,
+};
+
+const AVE_PATTERN = /(\d+)[A-Za-z]?\s*(?:-\d+)?\s+(12th|11th|10th|9th|8th|7th|6th|5th|4th|3rd|2nd|1st|twelfth|eleventh|tenth|ninth|eighth|seventh|sixth|fifth|fith|fourth|third|second|first|madison|park(?:\s+avenue\s+south|\s+ave\s+south)?|lexington|lex|york|avenue of the americas|avrnue of the americas|ave of the americas|ave of americas)\s*(?:avenue|avrnue|ave)?\b/i;
+const EXPLICIT_STREET = /\b(west|w|east|e)\.?\s*(\d{1,3})(?:st|nd|rd|th)?\s*(?:street|st)\b/i;
+const BARE_STREET_NUM = /(\d{1,3})(?:st|nd|rd|th)?\s*street\s*&/i;
+const STREET_AFTER_AMP = /&\s*(\d{1,3})(?:st|nd|rd|th)?\s*street/i;
+
+function canonAvenue(raw){
+  let key = raw.trim().toLowerCase().replace(/\s+/g," ");
+  if(AVENUE_ALIASES[key]) return AVENUE_ALIASES[key];
+  if(AVENUE_ALIASES[key+" avenue"]) return AVENUE_ALIASES[key+" avenue"];
+  if(AVENUE_ALIASES[key+" ave"]) return AVENUE_ALIASES[key+" ave"];
+  return null;
+}
+
+function parseLocation(address){
+  if(typeof address !== "string") return {avenue:null, street:null, confidence:"low"};
+  let avenue=null, street=null, confidence="low", num=null;
+  const mAve = AVE_PATTERN.exec(address);
+  if(mAve){ num = parseInt(mAve[1],10); avenue = canonAvenue(mAve[2]); }
+  const mExplicit = EXPLICIT_STREET.exec(address);
+  const mBare = BARE_STREET_NUM.exec(address);
+  const mAmp = STREET_AFTER_AMP.exec(address);
+  if(mExplicit) street = parseInt(mExplicit[2],10);
+  else if(mBare) street = parseInt(mBare[1],10);
+  else if(mAmp) street = parseInt(mAmp[1],10);
+
+  if(avenue && street){ confidence="high"; }
+  else if(avenue && FORMULAS[avenue]){
+    street = Math.round(FORMULAS[avenue](num));
+    if(street < 1 || street > 225){ street = null; confidence = "low"; }
+    else { confidence="medium"; }
+  }
+  else if(street && !avenue){
+    confidence="medium-low";
+    if(mExplicit){ const side=mExplicit[1].toLowerCase(); avenue = side.startsWith("e") ? "EAST_SIDE" : "WEST_SIDE"; }
+  } else if(avenue && !street){ confidence="low"; }
+  return {avenue, street, confidence};
+}
+
+function avenueInRange(avenue, westBound, eastBound){
+  if(avenue===null || avenue==="EAST_SIDE" || avenue==="WEST_SIDE") return null;
+  const idx = AVENUE_INDEX[avenue];
+  if(idx===undefined) return null;
+  const lo = AVENUE_INDEX[westBound], hi = AVENUE_INDEX[eastBound];
+  return idx>=lo && idx<=hi;
+}
+
+const KEEP_COLS = ["PropertyNo","Company","Location","Market","SubMarket","ZipCode","Contactname","Telephone","Email","Web Site","Notes","Opening Date"];
+// Columns A, C, E, G, I, K, M, O of the original BackOffice layout — what's actually shown/exported.
+const DISPLAY_COLS = ["PropertyNo","Company","Location","Market","SubMarket","ZipCode","Contactname","Telephone"];
+// Client-facing copy excludes columns M (Contactname) and O (Telephone) so clients can't bypass the broker.
+const CLIENT_DISPLAY_COLS = ["PropertyNo","Location","Market","SubMarket","ZipCode"];
+
+function normSubmarket(v){
+  if(v===undefined||v===null||v==="") return "Uncategorized";
+  let s = String(v).trim().replace(/\s+/g," ");
+  const fixes = {"time square":"Times Square","times square":"Times Square",
+    "rockefeller center/ plaza district":"Rockefeller Center/Plaza District","flatiron":"Flatiron District",
+    "finsncial district":"Financial District",
+    "murry hill / midtown":"Murray Hill / Midtown",
+    "midtownsouth/hudson square":"Midtown South/Hudson Square"};
+  return fixes[s.toLowerCase()] || s;
+}
+
+// Appends "(Opening <date>)" to a plain address only while that date is still
+// in the future. Once the date passes, the address displays plain with no
+// manual cleanup needed -- this same function backs every place Location is
+// shown (search results table, print reports, map labels), since it's applied
+// once at extraction time in extractRows() below.
+function formatLocationWithOpening(address, openingDateRaw){
+  const addr = address || "";
+  if(!openingDateRaw) return addr;
+
+  let openingDate;
+  if(openingDateRaw instanceof Date){
+    openingDate = openingDateRaw;
+  } else if(typeof openingDateRaw === "number"){
+    // Excel serial date (SheetJS may hand back a raw serial if cellDates wasn't set)
+    openingDate = XLSX.SSF ? new Date(Math.round((openingDateRaw - 25569) * 86400 * 1000)) : null;
+  } else {
+    const parsed = new Date(openingDateRaw);
+    openingDate = isNaN(parsed.getTime()) ? null : parsed;
+  }
+  if(!openingDate || isNaN(openingDate.getTime())) return addr;
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  if(openingDate <= today) return addr; // already open -- show plain address
+
+  const dateLabel = openingDate.toLocaleDateString("en-US", {month:"long", day:"numeric", year:"numeric"});
+  return `${addr} (Opening ${dateLabel})`;
+}
+
+function extractRows(workbook){
+  const sheet = workbook.Sheets["BackOffice"];
+  if(!sheet) throw new Error("No 'BackOffice' tab found in this workbook.");
+  const raw = XLSX.utils.sheet_to_json(sheet, {header:1, range:2, defval:""});
+  const headerRow = raw[0].map(h=>String(h).trim());
+  const colIdx = {};
+  headerRow.forEach((h,i)=>{ if(!(h in colIdx)) colIdx[h]=i; });
+  const rows = [];
+  let lastCompany = "";
+  for(let r=1; r<raw.length; r++){
+    const row = raw[r];
+    if(!row || row.every(c=>c==="" || c===undefined || c===null)) continue;
+    const rec = {};
+    KEEP_COLS.forEach(c=>{ rec[c] = colIdx[c]!==undefined ? row[colIdx[c]] : ""; });
+    if(rec.Company){ lastCompany = rec.Company; } else { rec.Company = lastCompany; }
+    rec.SubMarket_norm = normSubmarket(rec.SubMarket);
+    rec.Location = formatLocationWithOpening(rec.Location, rec["Opening Date"]);
+    rows.push(rec);
+  }
+  return rows;
+}
+
+function searchBounds(rows, streetMin, streetMax, westBound, eastBound){
+  const main=[], review=[];
+  rows.forEach(rec=>{
+    if(String(rec.Market||"").trim() !== "Manhattan") return;
+    const p = parseLocation(rec.Location);
+    const streetOk = p.street!==null && p.street>=streetMin && p.street<=streetMax;
+    const aveOk = avenueInRange(p.avenue, westBound, eastBound);
+    const out = Object.assign({}, rec, {
+      _ParsedStreet: p.street, _ParsedAvenue: (p.avenue==="EAST_SIDE"||p.avenue==="WEST_SIDE") ? `Unknown (${p.avenue.replace("_"," ")})` : p.avenue,
+      _Confidence: p.confidence
+    });
+    if(streetOk && aveOk===true) main.push(out);
+    else if(streetOk && aveOk===null) review.push(out);
+  });
+  return {main, review};
+}
+
+function searchSubmarket(rows, keywordString){
+  const keywords = keywordString.split(",").map(k=>k.trim().toLowerCase()).filter(k=>k.length>0);
+  if(keywords.length===0) return [];
+  return rows.filter(r => {
+    const sm = (r.SubMarket_norm||"").toLowerCase();
+    return keywords.some(kw => sm.includes(kw));
+  });
+}
+
+// ---------- UI ----------
+const root = document.getElementById("app-root");
+root.innerHTML = `
+<style>
+  * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+  #app-root { font-family: var(--font-body); color: var(--ink); background: var(--paper); padding: 0 14px 24px; max-width: 720px; margin: 0 auto; }
+
+  /* ---------- Masthead ---------- */
+  .ss-header {
+    margin: 0 -14px 20px; padding: 22px 20px 16px;
+    background:
+      linear-gradient(180deg, rgba(20,33,61,0.86) 0%, rgba(31,56,100,0.92) 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='64' viewBox='0 0 400 64'%3E%3Cg fill='%23132747'%3E%3Crect x='0' y='30' width='18' height='34'/%3E%3Crect x='20' y='18' width='14' height='46'/%3E%3Crect x='36' y='36' width='20' height='28'/%3E%3Crect x='60' y='8' width='16' height='56'/%3E%3Crect x='78' y='26' width='22' height='38'/%3E%3Crect x='104' y='40' width='16' height='24'/%3E%3Crect x='124' y='14' width='18' height='50'/%3E%3Crect x='146' y='32' width='14' height='32'/%3E%3Crect x='164' y='22' width='20' height='42'/%3E%3Crect x='188' y='4' width='16' height='60'/%3E%3Crect x='208' y='34' width='18' height='30'/%3E%3Crect x='230' y='16' width='14' height='48'/%3E%3Crect x='248' y='40' width='22' height='24'/%3E%3Crect x='274' y='24' width='16' height='40'/%3E%3Crect x='294' y='10' width='18' height='54'/%3E%3Crect x='316' y='36' width='14' height='28'/%3E%3Crect x='334' y='20' width='20' height='44'/%3E%3Crect x='358' y='30' width='16' height='34'/%3E%3Crect x='378' y='14' width='18' height='50'/%3E%3C/g%3E%3C/svg%3E") repeat-x bottom / 400px 64px;
+    border-bottom: 3px solid var(--coral);
+    display:flex; align-items:center; gap:12px; position: relative;
+  }
+  .ss-badge { width: 42px; height: 42px; border-radius: 9px; background: var(--coral); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:14px; flex-shrink:0; font-family: var(--font-body); letter-spacing: -0.02em; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+  .ss-eyebrow { font-size: 10px; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 2px; }
+  .ss-title { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: #fff; letter-spacing: -0.01em; line-height:1.1; }
+  .ss-sub { font-size: 12px; color: rgba(255,255,255,0.72); margin-top: 3px; }
+
+  .ss-card { background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 18px 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(20,33,61,0.04); }
+  .ss-card-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 14px; display:flex; align-items:baseline; gap:10px; }
+  .ss-step-num { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 15px; color: var(--coral); flex-shrink: 0; }
+  .ss-label { font-size: 11.5px; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display:block; }
+  .ss-row { display:flex; flex-direction: column; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .ss-field { flex: 1; min-width: 140px; }
+
+  input[type=file], input[type=number], input[type=text], input[type=date], select {
+    width: 100%; padding: 12px 12px; border: 1px solid var(--hairline-cool); border-radius: 8px; font-size: 16px; font-family: var(--font-body); background: #fff; box-sizing: border-box; color: var(--ink); min-height: 46px;
+  }
+  select:focus, input:focus { outline: 2px solid var(--coral); outline-offset: 1px; border-color: var(--coral); }
+
+  /* Custom upload tile — replaces the raw file input with a larger, clearer tap target */
+  .ss-upload-tile { position: relative; }
+  .ss-upload-tile input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; min-height: 84px; }
+  .ss-upload-visual {
+    display:flex; align-items:center; gap:12px; border: 1.5px dashed var(--hairline-cool); border-radius: 10px;
+    padding: 16px; background: var(--paper); min-height: 84px; box-sizing:border-box;
+  }
+  .ss-upload-icon { width:38px; height:38px; border-radius:8px; background: var(--navy); color:#fff; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:17px; }
+  .ss-upload-text-title { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .ss-upload-text-sub { font-size: 12px; color: var(--slate); margin-top: 1px; }
+
+  .ss-mode { display:flex; gap: 4px; margin-bottom: 16px; background: var(--paper); border: 1px solid var(--hairline); border-radius: 10px; padding: 4px; }
+  .ss-mode button { flex:1; padding: 11px 8px; border-radius: 7px; border: none; background: transparent; font-size: 12.5px; font-weight: 600; cursor: pointer; color: var(--slate); min-height: 42px; font-family: var(--font-body); }
+  .ss-mode button.active { background: var(--navy); color: #fff; box-shadow: 0 1px 3px rgba(20,33,61,0.25); }
+
+  .ss-btn { background: var(--coral); color: #fff; border: none; padding: 13px 20px; border-radius: 9px; font-size: 15px; font-weight: 700; font-family: var(--font-body); cursor: pointer; width: 100%; min-height: 48px; }
+  .ss-btn:hover { background: var(--coral-deep); }
+  .ss-btn:disabled { background: #D6D2C7; color:#9B9584; cursor: not-allowed; }
+  .ss-btn-secondary { background: var(--navy); }
+  .ss-btn-secondary:hover { background: var(--navy-deep); }
+  .ss-btn-ghost { background: transparent; color: var(--navy); border: 1.5px solid var(--hairline-cool); font-weight: 600; }
+  .ss-btn-ghost:hover { background: var(--paper); border-color: var(--navy); }
+  .ss-btn-ghost:disabled { background: transparent; color: #B7BCC4; border-color: var(--hairline-cool); }
+  .ss-btn-lg { font-size: 16px; padding: 15px 20px; min-height: 52px; }
+
+  .ss-status { font-size: 13px; padding: 10px 12px; border-radius: 8px; margin-top: 10px; }
+  .ss-status.info { background: #EAF1FB; color: var(--navy); }
+  .ss-status.error { background: var(--error-bg); color: var(--error); }
+  .ss-status.success { background: var(--success-bg); color: var(--success); }
+
+  .ss-pill { display:inline-block; font-size: 10.5px; font-weight: 700; color: var(--coral-deep); background: #FBEAE1; padding: 2px 8px; border-radius: 999px; letter-spacing: 0.02em; }
+
+  table.ss-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 10px; }
+  table.ss-table th { background: var(--navy); color: #fff; text-align: left; padding: 7px 8px; position: sticky; top:0; font-weight:600; }
+  table.ss-table td { padding: 6px 8px; border-bottom: 1px solid var(--hairline-cool); }
+  table.ss-table tr:nth-child(even) { background: var(--paper); }
+  .ss-table-wrap { max-height: 50vh; overflow: auto; border: 1px solid var(--hairline); border-radius: 10px; margin-top: 8px; -webkit-overflow-scrolling: touch; }
+  .ss-count { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--navy); margin-top: 14px; }
+  .ss-review-note { font-size: 12px; color: var(--warn); background: var(--warn-bg); padding: 8px 10px; border-radius: 8px; margin-top: 10px; }
+  .ss-actions { display:flex; flex-direction: column; gap:10px; margin-top: 16px; }
+
+  .ss-footer { text-align:center; font-size: 10.5px; color: var(--slate-soft); letter-spacing: 0.03em; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--hairline); }
+
+  /* Mobile card-style results table: each row becomes a labeled listing card instead of a cramped table */
+  @media (max-width: 699px) {
+    table.ss-table, table.ss-table tr, table.ss-table td { display:block; width:100%; box-sizing:border-box; }
+    table.ss-table th { display:none; }
+    table.ss-table tr { background:#fff; border:1px solid var(--hairline-cool); border-radius:10px; margin-bottom:10px; padding:12px 14px; }
+    table.ss-table td { border:none; padding:4px 0; display:flex; gap:8px; font-size:13px; }
+    table.ss-table td::before { content: attr(data-label); font-weight:700; color:var(--navy); min-width:112px; flex-shrink:0; font-size:10px; text-transform:uppercase; letter-spacing:.04em; }
+    table.ss-table td[data-label="Location"] { font-family: var(--font-display); font-size:14.5px; font-weight:600; color:var(--ink); }
+  }
+
+  /* "More options" collapsible section for secondary actions (download / map / email) */
+  details.ss-more { margin-top: 4px; }
+  details.ss-more summary { cursor:pointer; font-weight:700; color: var(--navy); padding: 10px 2px; list-style:none; font-size: 13px; display:flex; align-items:center; gap:6px; }
+  details.ss-more summary::-webkit-details-marker { display:none; }
+  details.ss-more summary::before { content: "▸"; display:inline-block; transition: transform 0.15s; color: var(--coral); }
+  details.ss-more[open] summary::before { transform: rotate(90deg); }
+  details.ss-more .ss-actions { margin-top: 10px; }
+
+  @media (min-width: 700px) {
+    #app-root { padding: 0 0 32px; }
+    .ss-header { margin: 0 0 24px; padding: 30px 32px 22px; border-radius: 0 0 14px 14px; }
+    .ss-title { font-size: 28px; }
+    .ss-card { padding: 24px; }
+    .ss-row { flex-direction: row; }
+    input[type=file], input[type=number], input[type=text], input[type=date], select { font-size: 14px; min-height: auto; padding: 9px 11px; }
+    .ss-btn { width: auto; }
+    .ss-actions { flex-direction: row; flex-wrap: wrap; }
+  }
+
+  #printArea { display:none; }
+  @media print {
+    body * { visibility: hidden; }
+    #printArea, #printArea * { visibility: visible; }
+    #printArea { display:block; position: absolute; top:0; left:0; width:100%; padding: 0; }
+    .print-header { display:flex; justify-content:space-between; align-items:flex-end; border-bottom: 3px solid #1F3864; padding-bottom: 10px; margin-bottom: 14px; }
+    .print-company { font-size: 20px; font-weight: 800; color: #1F3864; letter-spacing: -0.02em; }
+    .print-tagline { font-size: 11px; color: #5a6472; margin-top: 2px; }
+    .print-meta { text-align: right; font-size: 11px; color: #5a6472; }
+    .print-criteria { font-size: 12px; color: #1a2332; background: #F4F6F8; padding: 8px 12px; border-radius: 6px; margin-bottom: 14px; }
+    table.print-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.print-table th { background: #1F3864 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; color: #fff !important; text-align:left; padding: 6px 6px; border: 1px solid #1F3864; }
+    table.print-table td { padding: 7px 6px; border: 1px solid #D3D8DF; vertical-align: top; }
+    table.print-table tr { page-break-inside: avoid; }
+    .print-notes-col { min-width: 90px; }
+    .print-footnote { font-size: 8px; color: #9AA1AA; margin-top: 10px; text-align: center; }
+    @page { size: landscape; margin: 14mm; }
+  }
+
+  #previewOverlay {
+    display:none; position: fixed; inset: 0; background: rgba(20,26,38,0.55); z-index: 1000;
+    align-items: center; justify-content: center; padding: 24px;
+  }
+  #previewOverlay.active { display:flex; }
+  #mapOverlay {
+    display:none; position: fixed; inset: 0; background: rgba(20,26,38,0.55); z-index: 1000;
+    align-items: center; justify-content: center; padding: 24px;
+  }
+  #mapOverlay.active { display:flex; }
+  .map-marker-num {
+    background: var(--coral); color:#fff; border-radius: 50%; width: 30px; height: 30px;
+    display:flex; align-items:center; justify-content:center; font-size: 13px; font-weight: 800;
+    border: 2.5px solid #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+  }
+  .preview-card {
+    background: #fff; border-radius: 12px; width: 100%; max-width: 1100px; max-height: 92vh;
+    display:flex; flex-direction:column; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    font-family: var(--font-body);
+  }
+  .preview-toolbar {
+    display:flex; justify-content: space-between; align-items:center; padding: 12px 14px;
+    background: var(--navy); color:#fff; gap:10px;
+  }
+  .preview-toolbar-title { font-family: var(--font-display); font-weight:600; font-size:14px; flex:1; min-width:0; }
+  .preview-toolbar-actions { display:flex; gap:8px; flex-shrink:0; }
+  .preview-toolbar button { padding: 10px 14px; border-radius:8px; border:none; font-size:13px; font-weight:600; font-family: var(--font-body); cursor:pointer; min-height:42px; }
+  .preview-print-btn { background: var(--coral); color:#fff; }
+  .preview-print-btn:hover { background: var(--coral-deep); }
+  .preview-close-btn { background: rgba(255,255,255,0.15); color:#fff; }
+  .preview-close-btn:hover { background: rgba(255,255,255,0.28); }
+  .preview-body { overflow:auto; padding: 14px; background: var(--paper); -webkit-overflow-scrolling: touch; }
+  .preview-page {
+    background:#fff; padding: 16px 14px; border-radius: 6px; box-shadow: 0 1px 6px rgba(0,0,0,0.12);
+    min-width: 0;
+  }
+  .preview-page .print-header { display:flex; flex-direction:column; align-items:flex-start; gap:6px; border-bottom: 3px solid var(--navy); padding-bottom: 10px; margin-bottom: 14px; }
+  .preview-page .print-company { font-family: var(--font-display); font-size: 19px; font-weight: 600; color: var(--navy); }
+  .preview-page .print-tagline { font-size: 11px; color: var(--slate); margin-top: 2px; }
+  .preview-page .print-meta { text-align:left; font-size: 11px; color: var(--slate); }
+  .preview-page .print-criteria { font-size: 12px; color: var(--ink); background: var(--paper); padding: 8px 12px; border-radius: 8px; margin-bottom: 14px; }
+  .preview-page table.print-table { width:100%; border-collapse:collapse; font-size: 11px; }
+  .preview-page table.print-table th { background: var(--navy); color:#fff; text-align:left; padding:6px; border:1px solid var(--navy); font-weight:600; }
+  .preview-page table.print-table td { padding:7px 6px; border:1px solid #D3D8DF; vertical-align: top; }
+  .preview-page .print-footnote { font-size: 8px; color: #9AA1AA; margin-top: 10px; text-align:center; }
+
+  /* Phone: report listings become readable stacked cards instead of a tiny squeezed table */
+  @media (max-width: 699px) {
+    .preview-page table.print-table, .preview-page table.print-table tr, .preview-page table.print-table td { display:block; width:100%; box-sizing:border-box; }
+    .preview-page table.print-table th { display:none; }
+    .preview-page table.print-table tr { border:1px solid #D3D8DF; border-radius:10px; margin-bottom:10px; padding:12px 14px; }
+    .preview-page table.print-table td { border:none; padding:3px 0; font-size:13px; }
+    .preview-page table.print-table td::before { content: attr(data-label); display:block; font-weight:700; color: var(--navy); font-size:10px; text-transform:uppercase; letter-spacing:.03em; }
+    .preview-page table.print-table td.print-notes-col { display:none; }
+    .preview-page table.print-table td[data-label="Location"] { font-family: var(--font-display); font-size:15px; font-weight:600; color:var(--ink); }
+  }
+
+  @media (min-width: 700px) {
+    .preview-toolbar { padding: 12px 20px; }
+    .preview-toolbar-title { font-size:15px; }
+    .preview-body { padding: 24px; }
+    .preview-page { padding: 22px 26px; min-width: 900px; }
+    .preview-page .print-header { flex-direction:row; justify-content:space-between; align-items:flex-end; }
+    .preview-page .print-meta { text-align:right; }
+  }
+</style>
+
+<div id="previewOverlay">
+  <div class="preview-card">
+    <div class="preview-toolbar">
+      <div class="preview-toolbar-title" id="previewTitleLabel" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Preview</div>
+      <div class="preview-toolbar-actions">
+        <button class="preview-print-btn" id="previewPrintBtn">Print</button>
+        <button class="preview-close-btn" id="previewCloseBtn">Close</button>
+      </div>
+    </div>
+    <div style="padding:8px 14px; font-size:11.5px; color:#5a6472; background:#F4F6F8; border-bottom:1px solid #E2E6EB;">On iPhone: tap Print, then pinch out on the preview and choose "Save PDF to Files" to save or share it.</div>
+    <div class="preview-body">
+      <div class="preview-page" id="previewPage"></div>
+    </div>
+  </div>
+</div>
+
+<div id="mapOverlay">
+  <div class="preview-card">
+    <div class="preview-toolbar">
+      <div class="preview-toolbar-title" id="mapTitleLabel">Map View</div>
+      <div class="preview-toolbar-actions">
+        <button class="preview-print-btn" id="mapPrintBtn" disabled>Print Map</button>
+        <button class="preview-close-btn" id="mapCloseBtn">Close</button>
+      </div>
+    </div>
+    <div class="preview-body" style="padding:0; display:flex; flex-direction:column;">
+      <div id="mapStatus" style="padding:14px 20px; font-size:13px; color:#1F3864; background:#EAF1FB;"></div>
+      <div id="mapContainer" style="flex:1; min-height:520px; width:100%;"></div>
+    </div>
+  </div>
+</div>
+
+<div id="printArea">
+  <div class="print-header">
+    <div>
+      <div class="print-company">VB Porter &amp; Company LLC</div>
+      <div class="print-tagline" id="printTagline">Manhattan Office Suites — Space Search Results</div>
+    </div>
+    <div class="print-meta">
+      <div id="printPreparedFor" style="font-weight:700; color:#1F3864;"></div>
+      <div id="printDate"></div>
+      <div id="printCriteria2"></div>
+    </div>
+  </div>
+  <div class="print-criteria" id="printCriteria"></div>
+  <table class="print-table" id="printTable"></table>
+  <div class="print-footnote">This information is property of VB Porter &amp; Company</div>
+</div>
+
+
+<div class="ss-header">
+  <div class="ss-badge">VBP</div>
+  <div>
+    <div class="ss-eyebrow">VB Porter &amp; Company</div>
+    <div class="ss-title">OfficeSearch</div>
+    <div class="ss-sub">Manhattan office suites — search, filter &amp; report</div>
+  </div>
+</div>
+
+<div class="ss-card">
+  <div class="ss-card-title"><span class="ss-step-num">01</span> Your listings</div>
+  <div id="uploadStatus"><div class="ss-status info">Loading your listings…</div></div>
+  <div class="ss-upload-tile" style="margin-top:10px;">
+    <input type="file" id="fileInput" accept=".xlsx" />
+    <div class="ss-upload-visual">
+      <div class="ss-upload-icon">⬆</div>
+      <div>
+        <div class="ss-upload-text-title">Or choose a different file</div>
+        <div class="ss-upload-text-sub">Office_Suites_NYC.xlsx or similar</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ss-card">
+  <div class="ss-card-title"><span class="ss-step-num">02</span> Choose search type</div>
+  <div class="ss-mode">
+    <button id="modeBounds" class="active">Street / Avenue Box</button>
+    <button id="modeSubmarket">Submarket Keyword</button>
+  </div>
+
+  <div id="boundsFields">
+    <div class="ss-row">
+      <div class="ss-field">
+        <span class="ss-label">Above street #</span>
+        <input type="number" id="streetMin" value="34" />
+      </div>
+      <div class="ss-field">
+        <span class="ss-label">Below street #</span>
+        <input type="number" id="streetMax" value="50" />
+      </div>
+    </div>
+    <div class="ss-row">
+      <div class="ss-field">
+        <span class="ss-label">West boundary avenue</span>
+        <select id="westBound"></select>
+      </div>
+      <div class="ss-field">
+        <span class="ss-label">East boundary avenue</span>
+        <select id="eastBound"></select>
+      </div>
+    </div>
+  </div>
+
+  <div id="submarketFields" style="display:none;">
+    <div class="ss-field">
+      <span class="ss-label">Submarket(s) contain — separate multiple with commas</span>
+      <input type="text" id="keyword" placeholder="e.g. meat packing, soho, flatiron" />
+      <div id="submarketList" style="font-size:11.5px; color:#8a94a1; margin-top:6px; line-height:1.5;"></div>
+    </div>
+  </div>
+
+  <div class="ss-row" style="margin-top:14px; border-top:1px solid #E2E6EB; padding-top:14px;">
+    <div class="ss-field">
+      <span class="ss-label">Client / Company name (for printout)</span>
+      <input type="text" id="reportCompany" placeholder="e.g. Acme Corp" />
+    </div>
+    <div class="ss-field">
+      <span class="ss-label">Contact person name (for printout)</span>
+      <input type="text" id="reportContactName" placeholder="e.g. Jane Smith" />
+    </div>
+    <div class="ss-field">
+      <span class="ss-label">Date (for printout)</span>
+      <input type="date" id="reportDate" />
+    </div>
+  </div>
+
+  <div class="ss-actions">
+    <button class="ss-btn ss-btn-lg" id="runSearch" disabled>Run Search</button>
+  </div>
+  <div id="searchStatus"></div>
+</div>
+
+<div class="ss-card" id="reportsCard">
+  <div class="ss-card-title"><span class="ss-step-num">03</span> Reports — preview, then print or save as PDF</div>
+  <div class="ss-actions">
+    <button class="ss-btn ss-btn-secondary" id="printBrokerBtn" disabled>Preview Broker Copy</button>
+    <button class="ss-btn ss-btn-secondary" id="printClientBtn" disabled>Preview Client Copy</button>
+  </div>
+
+  <details class="ss-more">
+    <summary>More options (download, map, email)</summary>
+    <div class="ss-actions">
+      <button class="ss-btn ss-btn-secondary" id="downloadBtn" disabled>Download Workbook with SpaceSearch Tab</button>
+    </div>
+    <div class="ss-actions">
+      <button class="ss-btn ss-btn-secondary" id="mapBrokerBtn" disabled>View Map - Broker</button>
+      <button class="ss-btn ss-btn-secondary" id="mapClientBtn" disabled>View Map - Client</button>
+    </div>
+    <div class="ss-actions">
+      <button class="ss-btn ss-btn-secondary" id="emailBrokerBtn" disabled>Email Broker Copy</button>
+      <button class="ss-btn ss-btn-secondary" id="emailClientBtn" disabled>Email Client Copy</button>
+    </div>
+  </details>
+</div>
+
+<div class="ss-card" id="resultsCard" style="display:none;">
+  <div class="ss-count" id="resultCount"></div>
+  <div class="ss-table-wrap"><table class="ss-table" id="resultsTable"></table></div>
+  <div id="reviewSection"></div>
+</div>
+
+<div class="ss-footer">VB PORTER &amp; COMPANY LLC · MANHATTAN COMMERCIAL REAL ESTATE</div>
+`;
+
+// populate avenue dropdowns (west bound defaults to west side, east bound east side)
+const westSel = document.getElementById("westBound");
+const eastSel = document.getElementById("eastBound");
+AVENUE_ORDER.forEach(a=>{
+  westSel.innerHTML += `<option value="${a}">${a}</option>`;
+  eastSel.innerHTML += `<option value="${a}">${a}</option>`;
+});
+westSel.value = "7th Ave";
+eastSel.value = "Lexington Ave";
+document.getElementById("reportDate").value = new Date().toISOString().slice(0,10);
+
+let workbook = null;
+let rows = null;
+let lastMain = [], lastReview = [];
+let lastIsBounds = true;
+let lastCriteriaText = "";
+const WORKBOOK_FILENAME = "Office_Suites_NYC.xlsx"; // must live in the same website folder as this page
+
+function applyWorkbookData(data, sourceLabel){
+  const statusEl = document.getElementById("uploadStatus");
+  workbook = XLSX.read(data, {type:"array"});
+  rows = extractRows(workbook);
+  statusEl.innerHTML = `<div class="ss-status success">Loaded ${rows.length} listings ${sourceLabel}.</div>`;
+  document.getElementById("runSearch").disabled = false;
+  const uniqueSubmarkets = [...new Set(rows.map(r=>r.SubMarket_norm))].sort();
+  document.getElementById("submarketList").textContent = "Available submarkets: " + uniqueSubmarkets.join(", ");
+}
+
+function autoLoadWorkbook(){
+  const statusEl = document.getElementById("uploadStatus");
+  if(typeof XLSX === "undefined"){ return; } // library failed to load at all; leave manual picker as the option
+  fetch(WORKBOOK_FILENAME, {cache:"no-store"})
+    .then(r => { if(!r.ok) throw new Error("not found"); return r.arrayBuffer(); })
+    .then(buf => applyWorkbookData(new Uint8Array(buf), "automatically"))
+    .catch(() => {
+      statusEl.innerHTML = `<div class="ss-status info">Choose your workbook below to get started.</div>`;
+    });
+}
+const xlsxScriptEl = document.getElementById("xlsxScript");
+if(xlsxScriptEl){
+  xlsxScriptEl.addEventListener("load", autoLoadWorkbook);
+  xlsxScriptEl.addEventListener("error", ()=>{
+    document.getElementById("uploadStatus").innerHTML = `<div class="ss-status error">Couldn't load the Excel library — check your internet connection, then reload this page.</div>`;
+  });
+}
+
+document.getElementById("fileInput").addEventListener("change", (e)=>{
+  const file = e.target.files[0];
+  const statusEl = document.getElementById("uploadStatus");
+  if(!file) return;
+  if(typeof XLSX === "undefined"){
+    statusEl.innerHTML = `<div class="ss-status error">Still loading — check your internet connection and try tapping the upload tile again in a few seconds.</div>`;
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = (evt)=>{
+    try {
+      applyWorkbookData(new Uint8Array(evt.target.result), "from " + file.name);
+    } catch(err){
+      statusEl.innerHTML = `<div class="ss-status error">${err.message}</div>`;
+    }
+  };
+  reader.readAsArrayBuffer(file);
+});
+
+const modeBoundsBtn = document.getElementById("modeBounds");
+const modeSubmarketBtn = document.getElementById("modeSubmarket");
+modeBoundsBtn.addEventListener("click", ()=>{
+  modeBoundsBtn.classList.add("active"); modeSubmarketBtn.classList.remove("active");
+  document.getElementById("boundsFields").style.display = "block";
+  document.getElementById("submarketFields").style.display = "none";
+});
+modeSubmarketBtn.addEventListener("click", ()=>{
+  modeSubmarketBtn.classList.add("active"); modeBoundsBtn.classList.remove("active");
+  document.getElementById("boundsFields").style.display = "none";
+  document.getElementById("submarketFields").style.display = "block";
+});
+
+function renderTable(list, columns){
+  const table = document.getElementById("resultsTable");
+  if(list.length===0){ table.innerHTML = ""; return; }
+  let html = "<tr>" + columns.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  list.forEach(r=>{
+    html += "<tr>" + columns.map(c=>`<td data-label="${c}">${r[c]!==undefined && r[c]!==null ? r[c] : ""}</td>`).join("") + "</tr>";
+  });
+  table.innerHTML = html;
+}
+
+document.getElementById("runSearch").addEventListener("click", ()=>{
+  const statusEl = document.getElementById("searchStatus");
+  const resultsCard = document.getElementById("resultsCard");
+  const reviewSection = document.getElementById("reviewSection");
+  reviewSection.innerHTML = "";
+  const isBounds = modeBoundsBtn.classList.contains("active");
+
+  if(isBounds){
+    const streetMin = parseInt(document.getElementById("streetMin").value,10);
+    const streetMax = parseInt(document.getElementById("streetMax").value,10);
+    const west = westSel.value, east = eastSel.value;
+    if(AVENUE_INDEX[west] > AVENUE_INDEX[east]){
+      statusEl.innerHTML = `<div class="ss-status error">West boundary must be west of the east boundary.</div>`;
+      return;
+    }
+    const {main, review} = searchBounds(rows, streetMin, streetMax, west, east);
+    lastMain = main; lastReview = review;
+    document.getElementById("resultCount").textContent = `${main.length} confident match${main.length===1?"":"es"} between ${streetMin}th-${streetMax}th St, ${west}-${east}`;
+    renderTable(main, DISPLAY_COLS.concat(["_ParsedStreet","_ParsedAvenue","_Confidence"]));
+    if(review.length){
+      reviewSection.innerHTML = `<div class="ss-review-note">${review.length} more row(s) matched the street range but the avenue couldn't be confirmed from the address text — review manually:</div><div class="ss-table-wrap" id="reviewTableWrap"></div>`;
+      const reviewTable = document.createElement("table");
+      reviewTable.className = "ss-table";
+      reviewTable.id = "reviewTable";
+      document.getElementById("reviewTableWrap").appendChild(reviewTable);
+      const cols = DISPLAY_COLS.concat(["_ParsedStreet","_ParsedAvenue","_Confidence"]);
+      let html = "<tr>" + cols.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+      review.forEach(r=>{ html += "<tr>" + cols.map(c=>`<td>${r[c]!==undefined&&r[c]!==null?r[c]:""}</td>`).join("") + "</tr>"; });
+      reviewTable.innerHTML = html;
+    }
+  } else {
+    const keyword = document.getElementById("keyword").value || "";
+    if(!keyword.trim()){
+      statusEl.innerHTML = `<div class="ss-status error">Enter at least one submarket keyword first.</div>`;
+      return;
+    }
+    const matches = searchSubmarket(rows, keyword);
+    lastMain = matches; lastReview = [];
+    document.getElementById("resultCount").textContent = `${matches.length} match${matches.length===1?"":"es"} for submarket(s): "${keyword}"`;
+    renderTable(matches, DISPLAY_COLS);
+  }
+
+  resultsCard.style.display = "block";
+  statusEl.innerHTML = "";
+  document.getElementById("downloadBtn").disabled = lastMain.length===0 && lastReview.length===0;
+  document.getElementById("printBrokerBtn").disabled = lastMain.length===0 && lastReview.length===0;
+  document.getElementById("printClientBtn").disabled = lastMain.length===0 && lastReview.length===0;
+  document.getElementById("mapBrokerBtn").disabled = lastMain.length===0 && lastReview.length===0;
+  document.getElementById("mapClientBtn").disabled = lastMain.length===0 && lastReview.length===0;
+  document.getElementById("emailBrokerBtn").disabled = lastMain.length===0 && lastReview.length===0;
+  document.getElementById("emailClientBtn").disabled = lastMain.length===0 && lastReview.length===0;
+  lastIsBounds = isBounds;
+  lastCriteriaText = isBounds
+    ? `${document.getElementById("streetMin").value}th–${document.getElementById("streetMax").value}th St, between ${westSel.value} and ${eastSel.value}`
+    : `Submarket(s): ${document.getElementById("keyword").value}`;
+});
+
+document.getElementById("downloadBtn").addEventListener("click", ()=>{
+  if(!workbook) return;
+  const isBounds = modeBoundsBtn.classList.contains("active");
+  const cols = isBounds ? DISPLAY_COLS.concat(["_ParsedStreet","_ParsedAvenue","_Confidence"]) : DISPLAY_COLS;
+
+  const aoa = [];
+  aoa.push([isBounds ? "SpaceSearch: street/avenue box result (see columns for parse confidence)" : `SpaceSearch: submarket keyword result for "${document.getElementById("keyword").value}"`]);
+  aoa.push([]);
+  aoa.push(cols);
+  lastMain.forEach(r=> aoa.push(cols.map(c=>r[c]!==undefined&&r[c]!==null?r[c]:"")) );
+  if(isBounds && lastReview.length){
+    aoa.push([]);
+    aoa.push([`NEEDS MANUAL REVIEW (${lastReview.length} rows) — avenue not confirmed`]);
+    aoa.push(cols);
+    lastReview.forEach(r=> aoa.push(cols.map(c=>r[c]!==undefined&&r[c]!==null?r[c]:"")) );
+  }
+
+  const newSheet = XLSX.utils.aoa_to_sheet(aoa);
+  if(workbook.Sheets["SpaceSearch"]) {
+    const idx = workbook.SheetNames.indexOf("SpaceSearch");
+    workbook.SheetNames.splice(idx,1);
+    delete workbook.Sheets["SpaceSearch"];
+  }
+  workbook.SheetNames.push("SpaceSearch");
+  workbook.Sheets["SpaceSearch"] = newSheet;
+
+  XLSX.writeFile(workbook, "Office_Suites_NYC_SpaceSearch.xlsx");
+});
+
+function buildReportMarkup(copyType){
+  const isClient = copyType === "client";
+  const printCols = isClient ? CLIENT_DISPLAY_COLS : DISPLAY_COLS;
+  const allRows = lastIsBounds ? lastMain.concat(lastReview) : lastMain;
+
+  const companyName = document.getElementById("reportCompany").value.trim();
+  const contactName = document.getElementById("reportContactName").value.trim();
+  const chosenDate = document.getElementById("reportDate").value;
+  const displayDate = chosenDate
+    ? new Date(chosenDate + "T00:00:00").toLocaleDateString("en-US", {year:"numeric", month:"long", day:"numeric"})
+    : new Date().toLocaleDateString("en-US", {year:"numeric", month:"long", day:"numeric"});
+
+  const tagline = isClient ? "Manhattan Office Suites — Client Copy" : "Manhattan Office Suites — Broker Copy (Internal)";
+  let preparedFor = "";
+  if(companyName && contactName) preparedFor = `Prepared for: ${companyName} — Attn: ${contactName}`;
+  else if(companyName) preparedFor = `Prepared for: ${companyName}`;
+  else if(contactName) preparedFor = `Attn: ${contactName}`;
+  const resultLabel = `${allRows.length} result${allRows.length===1?"":"s"}`;
+
+  const COL_WIDTHS = {
+    "#": 3, PropertyNo: 5, Company: 12, Location: 24, Market: 8, SubMarket: 14,
+    ZipCode: 6, Contactname: 11, Telephone: 10,
+  };
+  const printColsWithNum = ["#"].concat(printCols);
+  let usedWidth = printColsWithNum.reduce((sum,c)=> sum + (COL_WIDTHS[c]||10), 0) + 12; // +12 for notes col
+  let colgroupHTML = "<colgroup>" + printColsWithNum.map(c=>{
+    const pct = ((COL_WIDTHS[c]||10) / usedWidth * 100).toFixed(1);
+    return `<col style="width:${pct}%">`;
+  }).join("") + `<col class="print-notes-col" style="width:${(12/usedWidth*100).toFixed(1)}%"></colgroup>`;
+
+  let tableHTML = colgroupHTML + "<tr>" + printColsWithNum.map(c=>`<th>${c==="Contactname"?"Contact":c}</th>`).join("") + `<th class="print-notes-col">Notes</th></tr>`;
+  allRows.forEach((r, i)=>{
+    tableHTML += `<tr><td data-label="#">${i+1}</td>` + printCols.map(c=>`<td data-label="${c==="Contactname"?"Contact":c}">${r[c]!==undefined&&r[c]!==null?r[c]:""}</td>`).join("") + `<td class="print-notes-col" data-label="Notes">&nbsp;</td></tr>`;
+  });
+
+  const fullHTML = `
+    <div class="print-header">
+      <div>
+        <div class="print-company">VB Porter &amp; Company LLC</div>
+        <div class="print-tagline">${tagline}</div>
+      </div>
+      <div class="print-meta">
+        <div style="font-weight:700; color:#1F3864;">${preparedFor}</div>
+        <div>${displayDate}</div>
+        <div>${resultLabel}</div>
+      </div>
+    </div>
+    <div class="print-criteria">Search criteria — ${lastCriteriaText}</div>
+    <table class="print-table">${tableHTML}</table>
+    <div class="print-footnote">This information is property of VB Porter &amp; Company</div>
+  `;
+
+  return { fullHTML, tagline };
+}
+
+let currentPreviewCopyType = "broker";
+
+function openPreview(copyType){
+  currentPreviewCopyType = copyType;
+  const { fullHTML, tagline } = buildReportMarkup(copyType);
+  document.getElementById("previewPage").innerHTML = fullHTML;
+  document.getElementById("previewTitleLabel").textContent = tagline;
+  document.getElementById("previewOverlay").classList.add("active");
+}
+
+function closePreview(){
+  document.getElementById("previewOverlay").classList.remove("active");
+}
+
+const PRINT_DOC_CSS = `
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color:#1a2332; margin:0; padding: 10mm; width: 100%; }
+  .print-header { display:flex; justify-content:space-between; align-items:flex-end; border-bottom: 3px solid #1F3864; padding-bottom: 10px; margin-bottom: 14px; }
+  .print-company { font-size: 20px; font-weight: 800; color: #1F3864; letter-spacing: -0.02em; }
+  .print-tagline { font-size: 11px; color: #5a6472; margin-top: 2px; }
+  .print-meta { text-align: right; font-size: 11px; color: #5a6472; }
+  .print-criteria { font-size: 12px; color: #1a2332; background: #F4F6F8; padding: 8px 12px; border-radius: 6px; margin-bottom: 14px; }
+  table.print-table { width: 100%; max-width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 9.5px; }
+  table.print-table th { background: #1F3864; -webkit-print-color-adjust: exact; print-color-adjust: exact; color: #fff; text-align:left; padding: 5px 5px; border: 1px solid #1F3864; overflow-wrap: break-word; }
+  table.print-table td { padding: 5px 5px; border: 1px solid #D3D8DF; vertical-align: top; overflow-wrap: break-word; word-break: break-word; }
+  table.print-table tr { page-break-inside: avoid; }
+  .print-notes-col { width: 12%; }
+  .print-footnote { font-size: 8px; color: #9AA1AA; margin-top: 10px; text-align: center; }
+  @page { size: landscape; margin: 10mm; }
+`;
+
+function printFromPreview(){
+  const { fullHTML } = buildReportMarkup(currentPreviewCopyType);
+  const printWindow = window.open("", "_blank", "width=1400,height=900");
+  if(!printWindow){
+    alert("Your browser blocked the print window pop-up. Please allow pop-ups for this page and try again.");
+    return;
+  }
+  printWindow.document.write(`<!DOCTYPE html><html><head><title>SpaceSearch Report</title>
+    <meta charset="utf-8"><style>${PRINT_DOC_CSS}</style></head>
+    <body>${fullHTML}</body></html>`);
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.onload = () => { printWindow.print(); };
+  setTimeout(() => { printWindow.print(); }, 400);
+}
+
+document.getElementById("printBrokerBtn").addEventListener("click", ()=> openPreview("broker"));
+document.getElementById("printClientBtn").addEventListener("click", ()=> openPreview("client"));
+document.getElementById("previewCloseBtn").addEventListener("click", closePreview);
+document.getElementById("previewPrintBtn").addEventListener("click", printFromPreview);
+document.getElementById("previewOverlay").addEventListener("click", (e)=>{
+  if(e.target.id === "previewOverlay") closePreview();
+});
+
+// ---------- Map view (OpenStreetMap + Nominatim geocoding, no API key needed) ----------
+const geocodeCache = {};
+
+async function geocodeAddress(query){
+  if(geocodeCache[query] !== undefined) return geocodeCache[query];
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q=${encodeURIComponent(query)}`;
+    const res = await fetch(url, { headers: { "Accept-Language": "en" } });
+    const data = await res.json();
+    if(data && data.length){
+      const result = { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+      geocodeCache[query] = result;
+      return result;
+    }
+  } catch(e){ console.error("Geocode failed for", query, e); }
+  geocodeCache[query] = null;
+  return null;
+}
+
+async function geocodeAll(rowsWithNum, statusEl){
+  const results = [];
+  for(let i=0;i<rowsWithNum.length;i++){
+    const { num, row } = rowsWithNum[i];
+    const boroughPart = row.Market && row.Market !== "Manhattan" ? row.Market : "Manhattan";
+    const query = `${row.Location}, ${boroughPart}, New York, NY`;
+    statusEl.textContent = `Locating addresses on the map… ${i+1} of ${rowsWithNum.length}`;
+    const geo = await geocodeAddress(query);
+    if(geo) results.push({ num, row, lat: geo.lat, lon: geo.lon });
+    if(i < rowsWithNum.length-1) await new Promise(res=>setTimeout(res, 1100));
+  }
+  return results;
+}
+
+let currentMapData = null;
+let currentMapCopyType = "broker";
+let leafletMapInstance = null;
+
+async function openMapView(copyType){
+  currentMapCopyType = copyType;
+  const allRows = lastIsBounds ? lastMain.concat(lastReview) : lastMain;
+  const rowsWithNum = allRows.map((r,i)=>({ num: i+1, row: r }));
+
+  document.getElementById("mapTitleLabel").textContent = copyType === "client" ? "Map View — Client Copy" : "Map View — Broker Copy";
+  document.getElementById("mapOverlay").classList.add("active");
+  document.getElementById("mapPrintBtn").disabled = true;
+  const statusEl = document.getElementById("mapStatus");
+  statusEl.textContent = "Locating addresses on the map…";
+
+  if(leafletMapInstance){ leafletMapInstance.remove(); leafletMapInstance = null; }
+  document.getElementById("mapContainer").innerHTML = "";
+
+  const geocoded = await geocodeAll(rowsWithNum, statusEl);
+  currentMapData = geocoded;
+
+  if(geocoded.length === 0){
+    statusEl.textContent = "Couldn't locate any of these addresses on the map. Try again, or check your internet connection.";
+    return;
+  }
+
+  statusEl.textContent = `Showing ${geocoded.length} of ${allRows.length} location(s) on the map.` +
+    (geocoded.length < allRows.length ? " Some addresses could not be matched to a map location." : "");
+
+  const map = L.map("mapContainer");
+  leafletMapInstance = map;
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '© OpenStreetMap contributors', maxZoom: 19
+  }).addTo(map);
+
+  const bounds = [];
+  geocoded.forEach(pt=>{
+    const icon = L.divIcon({ className:"", html:`<div class="map-marker-num">${pt.num}</div>`, iconSize:[30,30], iconAnchor:[15,15] });
+    const label = copyType === "client"
+      ? `#${pt.num} — ${pt.row.Location}`
+      : `#${pt.num} — ${pt.row.Company} — ${pt.row.Location}`;
+    L.marker([pt.lat, pt.lon], { icon }).addTo(map).bindPopup(label);
+    bounds.push([pt.lat, pt.lon]);
+  });
+  map.fitBounds(bounds, { padding: [30,30] });
+
+  document.getElementById("mapPrintBtn").disabled = false;
+}
+
+function closeMapView(){
+  document.getElementById("mapOverlay").classList.remove("active");
+}
+
+function printMap(){
+  if(!currentMapData || currentMapData.length === 0) return;
+  const companyName = document.getElementById("reportCompany").value.trim();
+  const contactName = document.getElementById("reportContactName").value.trim();
+  let preparedFor = "";
+  if(companyName && contactName) preparedFor = `Prepared for: ${companyName} — Attn: ${contactName}`;
+  else if(companyName) preparedFor = `Prepared for: ${companyName}`;
+  else if(contactName) preparedFor = `Attn: ${contactName}`;
+
+  const isClient = currentMapCopyType === "client";
+  const tagline = isClient ? "Manhattan Office Suites — Map (Client Copy)" : "Manhattan Office Suites — Map (Broker Copy)";
+
+  const listItems = currentMapData.map(pt=>{
+    const label = isClient ? pt.row.Location : `${pt.row.Company} — ${pt.row.Location}`;
+    return `<li><b>#${pt.num}</b> — ${label}</li>`;
+  }).join("");
+
+  const markersJSON = JSON.stringify(currentMapData.map(pt=>({
+    num: pt.num, lat: pt.lat, lon: pt.lon,
+    label: isClient ? `#${pt.num} — ${pt.row.Location}` : `#${pt.num} — ${pt.row.Company} — ${pt.row.Location}`
+  })));
+
+  const printWindow = window.open("", "_blank", "width=1400,height=900");
+  if(!printWindow){
+    alert("Your browser blocked the print window pop-up. Please allow pop-ups for this page and try again.");
+    return;
+  }
+  printWindow.document.write(`<!DOCTYPE html><html><head><title>SpaceSearch Map</title><meta charset="utf-8">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/script>
+    <style>
+      * { box-sizing: border-box; }
+      body { font-family: 'Segoe UI', Arial, sans-serif; margin:0; padding: 10mm; color:#1a2332; }
+      .print-header { display:flex; justify-content:space-between; align-items:flex-end; border-bottom: 3px solid #1F3864; padding-bottom: 10px; margin-bottom: 12px; }
+      .print-company { font-size: 20px; font-weight: 800; color: #1F3864; }
+      .print-tagline { font-size: 11px; color: #5a6472; margin-top: 2px; }
+      .print-meta { text-align:right; font-size: 11px; color:#5a6472; font-weight:700; color:#1F3864; }
+      #printMap { width: 100%; height: 480px; border: 1px solid #D3D8DF; border-radius: 6px; }
+      .map-list { columns: 2; column-gap: 24px; font-size: 11px; margin-top: 14px; padding-left: 18px; }
+      .map-list li { break-inside: avoid; margin-bottom: 4px; }
+      .print-footnote { font-size: 8px; color: #9AA1AA; margin-top: 12px; text-align:center; }
+      .map-marker-num { background:#D9663B; color:#fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; border:2.5px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,0.5); }
+      @page { size: landscape; margin: 10mm; }
+    </style></head>
+    <body>
+      <div class="print-header">
+        <div>
+          <div class="print-company">VB Porter &amp; Company LLC</div>
+          <div class="print-tagline">${tagline}</div>
+        </div>
+        <div class="print-meta">${preparedFor}</div>
+      </div>
+      <div id="printMap"></div>
+      <ul class="map-list">${listItems}</ul>
+      <div class="print-footnote">This information is property of VB Porter &amp; Company</div>
+      <script>
+        const markers = ${markersJSON};
+        const map = L.map('printMap');
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors', maxZoom: 19 }).addTo(map);
+        const bounds = [];
+        markers.forEach(m=>{
+          const icon = L.divIcon({ className:'', html:'<div class="map-marker-num">'+m.num+'</div>', iconSize:[28,28], iconAnchor:[14,14] });
+          L.marker([m.lat, m.lon], {icon}).addTo(map).bindPopup(m.label);
+          bounds.push([m.lat, m.lon]);
+        });
+        map.fitBounds(bounds, {padding:[20,20]});
+        setTimeout(()=>{ window.print(); }, 1800);
+      <\/script>
+    </body></html>`);
+  printWindow.document.close();
+  printWindow.focus();
+}
+
+document.getElementById("mapBrokerBtn").addEventListener("click", ()=> openMapView("broker"));
+document.getElementById("mapClientBtn").addEventListener("click", ()=> openMapView("client"));
+document.getElementById("mapCloseBtn").addEventListener("click", closeMapView);
+document.getElementById("mapPrintBtn").addEventListener("click", printMap);
+document.getElementById("mapOverlay").addEventListener("click", (e)=>{
+  if(e.target.id === "mapOverlay") closeMapView();
+});
+
+// ---------- Emailable PDF version (same look as the printable report) ----------
+function emailReport(copyType){
+  const { fullHTML } = buildReportMarkup(copyType);
+  const companyName = document.getElementById("reportCompany").value.trim();
+  const contactName = document.getElementById("reportContactName").value.trim();
+
+  const printWindow = window.open("", "_blank", "width=1400,height=900");
+  if(!printWindow){
+    alert("Your browser blocked the print window pop-up. Please allow pop-ups for this page and try again.");
+    return;
+  }
+  printWindow.document.write(`<!DOCTYPE html><html><head><title>SpaceSearch Report</title>
+    <meta charset="utf-8"><style>${PRINT_DOC_CSS}</style></head>
+    <body>${fullHTML}</body></html>`);
+  printWindow.document.close();
+  printWindow.focus();
+
+  const doPrint = () => { printWindow.print(); };
+  printWindow.onload = doPrint;
+  setTimeout(doPrint, 400);
+
+  // Give the person a moment to save the PDF from the print dialog (choose
+  // "Save as PDF" as the destination), then open a pre-filled email draft.
+  setTimeout(()=>{
+    const greeting = contactName ? `Hi ${contactName},` : "Hi,";
+    const subject = encodeURIComponent(
+      `Manhattan Office Suites — ${copyType === "client" ? "Options for You" : "Broker Copy"}${companyName ? " — " + companyName : ""}`
+    );
+    const body = encodeURIComponent(
+      `${greeting}\n\nPlease see the attached Manhattan office suites list${companyName ? " prepared for " + companyName : ""}.\n\n` +
+      `In the window that just opened, choose "Save as PDF" as the printer/destination to save the file, then attach it here before sending.\n\n` +
+      `Best,\nVB Porter & Company LLC`
+    );
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  }, 800);
+}
+
+document.getElementById("emailBrokerBtn").addEventListener("click", ()=> emailReport("broker"));
+document.getElementById("emailClientBtn").addEventListener("click", ()=> emailReport("client"));
+
+} catch(fatalErr) {
+  document.body.style.background = "#F5F3EE";
+  document.body.innerHTML = `<div style="max-width:600px;margin:60px auto;padding:24px;font-family:-apple-system,sans-serif;background:#fff;border:1px solid #E4E1D8;border-radius:12px;">
+    <div style="font-size:18px;font-weight:700;color:#1F3864;margin-bottom:8px;">OfficeSearch couldn't start</div>
+    <div style="font-size:14px;color:#5C6470;line-height:1.5;margin-bottom:12px;">Something went wrong loading the app. Try closing this tab and reopening OfficeSearch.html in Safari, and make sure you have an internet connection (needed the first time to load the Excel-reading library).</div>
+    <div style="font-size:11px;color:#B7BCC4;font-family:monospace;word-break:break-all;">${(fatalErr && fatalErr.message) ? fatalErr.message : fatalErr}</div>
+  </div>`;
+}
+})();
+</script>
+
+</body>
+</html>
