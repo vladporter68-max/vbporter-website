@@ -228,6 +228,52 @@ function normSubmarket(v){
   return fixes[s.toLowerCase()] || s;
 }
 
+// ---------- Submarket grouping (same real place, different names) ----------
+// Each group merges raw SubMarket labels that genuinely refer to the same real submarket --
+// either an exact "X / Y" combined-name label plus its standalone parts, or a verified true
+// synonym (e.g. a suffix variant that plain text-matching wouldn't otherwise catch). This is
+// curated by hand, not fully automatic -- automatic transitive merging was tried and produces
+// wrong results (e.g. it would wrongly chain Flatiron all the way to Hudson Square just because
+// both separately border NoMad/Midtown South). Checking any ONE checkbox in a group returns
+// listings tagged with ANY of that group's raw labels.
+const SUBMARKET_GROUPS = [
+  { label: "Financial District / World Trade Center",
+    members: ["Financial District", "Financial District/World Trade Center", "World Trade Center"] },
+  { label: "Midtown South / Flatiron / NoMad",
+    members: ["Midtown South", "Flatiron District", "Flatiron / NoMad", "NoMad", "Midtown South/NoMad"] },
+  { label: "Penn Plaza / Herald Square / Penn Station",
+    members: ["Penn Plaza", "Penn Plaza/Garment District", "Herald Square / Penn Plaza / Penn Station"] },
+  { label: "SoHo / Tribeca",
+    members: ["SoHo", "Tribeca", "Tribeca / SoHo"] },
+  { label: "Plaza District / Rockefeller Center",
+    members: ["Plaza District", "Rockefeller Center/Plaza District"] },
+  { label: "Upper West Side / Lincoln Square",
+    members: ["Upper West Side", "Lincoln Square / Upper West Side"] },
+  { label: "Midtown / Murray Hill",
+    members: ["Midtown", "Murray Hill / Midtown"] },
+];
+const SUBMARKET_GROUP_BY_MEMBER = {};
+SUBMARKET_GROUPS.forEach(g => g.members.forEach(m => { SUBMARKET_GROUP_BY_MEMBER[m.toLowerCase()] = g; }));
+
+function buildSubmarketChoices(uniqueRawSubmarkets){
+  const presentSet = new Set(uniqueRawSubmarkets);
+  const seenGroups = new Set();
+  const choices = [];
+  uniqueRawSubmarkets.forEach(raw=>{
+    const group = SUBMARKET_GROUP_BY_MEMBER[raw.toLowerCase()];
+    if(group){
+      if(seenGroups.has(group.label)) return;
+      seenGroups.add(group.label);
+      const membersPresent = group.members.filter(m=>presentSet.has(m));
+      choices.push({ label: group.label, members: membersPresent });
+    } else {
+      choices.push({ label: raw, members: [raw] });
+    }
+  });
+  choices.sort((a,b)=>a.label.localeCompare(b.label));
+  return choices;
+}
+
 // Appends "(Opening <date>)" to a plain address only while that date is still
 // in the future. Once the date passes, the address displays plain with no
 // manual cleanup needed -- this same function backs every place Location is
@@ -614,9 +660,10 @@ function applyLoadedRows(loadedRows, statusHtml){
   document.getElementById("uploadStatus").innerHTML = statusHtml;
   document.getElementById("runSearch").disabled = false;
   const uniqueSubmarkets = [...new Set(rows.map(r=>r.SubMarket_norm))].filter(Boolean).sort((a,b)=>a.localeCompare(b));
+  const submarketChoices = buildSubmarketChoices(uniqueSubmarkets);
   const cbContainer = document.getElementById("submarketCheckboxes");
-  cbContainer.innerHTML = uniqueSubmarkets.map((sm,i)=>
-    `<label><input type="checkbox" class="submarket-cb" value="${sm.replace(/"/g,"&quot;")}" id="sm_cb_${i}"> ${sm}</label>`
+  cbContainer.innerHTML = submarketChoices.map((choice,i)=>
+    `<label><input type="checkbox" class="submarket-cb" data-label="${choice.label.replace(/"/g,"&quot;")}" data-members='${JSON.stringify(choice.members).replace(/'/g,"&#39;")}' id="sm_cb_${i}"> ${choice.label}</label>`
   ).join("");
 }
 
@@ -793,14 +840,19 @@ document.getElementById("runSearch").addEventListener("click", ()=>{
       verifyReviewRows(review, west, east); // runs automatically -- no click needed
     }
   } else {
-    const selected = Array.from(document.querySelectorAll(".submarket-cb:checked")).map(cb=>cb.value);
-    if(selected.length===0){
+    const checkedBoxes = Array.from(document.querySelectorAll(".submarket-cb:checked"));
+    if(checkedBoxes.length===0){
       statusEl.innerHTML = `<div class="ss-status error">Check at least one submarket first.</div>`;
       return;
     }
-    const matches = searchSubmarket(rows, selected);
+    const selectedLabels = checkedBoxes.map(cb=>cb.dataset.label);
+    const selectedMembers = [];
+    checkedBoxes.forEach(cb=>{
+      JSON.parse(cb.dataset.members).forEach(m=>selectedMembers.push(m));
+    });
+    const matches = searchSubmarket(rows, selectedMembers);
     lastMain = matches; lastReview = []; verifiedConfirmedRows = [];
-    document.getElementById("resultCount").textContent = `${matches.length} match${matches.length===1?"":"es"} for submarket(s): ${selected.join(", ")}`;
+    document.getElementById("resultCount").textContent = `${matches.length} match${matches.length===1?"":"es"} for submarket(s): ${selectedLabels.join(", ")}`;
     renderTable(matches, DISPLAY_COLS);
   }
 
@@ -810,7 +862,7 @@ document.getElementById("runSearch").addEventListener("click", ()=>{
   lastIsBounds = isBounds;
   lastCriteriaText = isBounds
     ? `${document.getElementById("streetMin").value}th–${document.getElementById("streetMax").value}th St, between ${westSel.value} and ${eastSel.value}`
-    : `Submarket(s): ${Array.from(document.querySelectorAll(".submarket-cb:checked")).map(cb=>cb.value).join(", ")}`;
+    : `Submarket(s): ${Array.from(document.querySelectorAll(".submarket-cb:checked")).map(cb=>cb.dataset.label).join(", ")}`;
 });
 
 document.getElementById("downloadBtn").addEventListener("click", ()=>{
