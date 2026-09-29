@@ -382,6 +382,21 @@ root.innerHTML = `
   table.ss-table td { padding: 6px 8px; border-bottom: 1px solid #EEF0F3; }
   table.ss-table tr:nth-child(even) { background: #FAFBFC; }
   .ss-table-wrap { max-height: 340px; overflow: auto; border: 1px solid #E2E6EB; border-radius: 8px; margin-top: 8px; }
+  .ss-remove-btn {
+    background: none; border: 1px solid #D3D8DF; color: #8a94a1; width: 26px; height: 26px;
+    border-radius: 5px; font-size: 15px; line-height: 1; cursor: pointer; padding: 0;
+  }
+  .ss-remove-btn:hover, .ss-remove-btn:active { background: #FCEAEA; border-color: #E8A0A0; color: #A22; }
+  .ss-undo-banner {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    background: #EAF1FB; color: #1F3864; font-size: 12.5px; padding: 8px 12px;
+    border-radius: 6px; margin-top: 8px;
+  }
+  .ss-undo-banner button {
+    background: #1F3864; color: #fff; border: none; padding: 6px 14px; border-radius: 5px;
+    font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  }
+  .ss-undo-banner button:hover { background: #16294A; }
   .ss-count { font-size: 13px; font-weight: 600; color: #1F3864; margin-top: 14px; }
   .ss-review-note { font-size: 12px; color: #8A6D00; background: #FFF6DD; padding: 8px 10px; border-radius: 6px; margin-top: 10px; }
   .ss-checkbox-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:6px 14px; max-height:260px; overflow-y:auto; border:1px solid #E2E6EB; border-radius:6px; padding:12px; background:#fff; font-size:13px; }
@@ -634,6 +649,7 @@ root.innerHTML = `
 <div class="ss-card" id="resultsCard" style="display:none;">
   <div class="ss-count" id="resultCount"></div>
   <div class="ss-table-wrap"><table class="ss-table" id="resultsTable"></table></div>
+  <div id="undoBanner"></div>
   <div id="reviewSection"></div>
 </div>
 `;
@@ -692,6 +708,8 @@ fetch("Office_Suites_NYC.xlsx")
   });
 
 let lastMain = [], lastReview = [], verifiedConfirmedRows = [], verifyingInProgress = false;
+let lastMainColumns = null; // remembers which columns to redraw with after a row is removed
+let lastRemoved = null;     // { row, index } for one-level undo
 
 // Keeps every report/export button in lockstep with whether it's actually safe to use them
 // right now: disabled with nothing searched yet, disabled while the background address check
@@ -749,13 +767,60 @@ document.getElementById("clearAllSubmarkets").addEventListener("click", ()=>{
 });
 
 function renderTable(list, columns){
+  lastMainColumns = columns;
   const table = document.getElementById("resultsTable");
   if(list.length===0){ table.innerHTML = ""; return; }
-  let html = "<tr>" + columns.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  let html = "<tr>" + columns.map(c=>`<th>${c}</th>`).join("") + "<th></th></tr>";
   list.forEach(r=>{
-    html += "<tr>" + columns.map(c=>`<td>${r[c]!==undefined && r[c]!==null ? r[c] : ""}</td>`).join("") + "</tr>";
+    html += `<tr data-propno="${r.PropertyNo}">` + columns.map(c=>`<td>${r[c]!==undefined && r[c]!==null ? r[c] : ""}</td>`).join("")
+      + `<td><button type="button" class="ss-remove-btn" title="Remove this listing from the results" data-propno="${r.PropertyNo}">&times;</button></td></tr>`;
   });
   table.innerHTML = html;
+}
+
+// Lets you drop a listing you know your client won't want before printing/emailing -- every
+// report reads straight from lastMain at the moment it's generated, so a removed row
+// disappears from Preview, Print, Email, and Map alike without anything else needing to change.
+function removeMainRow(propNo){
+  const idx = lastMain.findIndex(r => String(r.PropertyNo) === String(propNo));
+  if(idx === -1) return;
+  lastRemoved = { row: lastMain[idx], index: idx };
+  lastMain.splice(idx, 1);
+  renderTable(lastMain, lastMainColumns);
+  refreshResultCountLabel();
+  updateReportButtonsState();
+  showUndoBanner(lastRemoved.row);
+}
+
+function showUndoBanner(row){
+  const banner = document.getElementById("undoBanner");
+  const label = row.Company ? `${row.Company} — ${row.Location}` : row.Location;
+  banner.innerHTML = `<div class="ss-undo-banner"><span>Removed: ${label}</span><button type="button" id="undoRemoveBtn">Undo</button></div>`;
+  document.getElementById("undoRemoveBtn").addEventListener("click", ()=>{
+    if(!lastRemoved) return;
+    lastMain.splice(Math.min(lastRemoved.index, lastMain.length), 0, lastRemoved.row);
+    renderTable(lastMain, lastMainColumns);
+    refreshResultCountLabel();
+    updateReportButtonsState();
+    banner.innerHTML = "";
+    lastRemoved = null;
+  });
+}
+
+document.getElementById("resultsTable").addEventListener("click", (e)=>{
+  const btn = e.target.closest(".ss-remove-btn");
+  if(btn) removeMainRow(btn.dataset.propno);
+});
+
+// Keeps the "N results" line above the table accurate after a removal, without needing to
+// re-run the whole search.
+function refreshResultCountLabel(){
+  const el = document.getElementById("resultCount");
+  const n = lastMain.length;
+  const suffix = n===1 ? "" : "es";
+  el.textContent = lastIsBounds
+    ? `${n} confident match${suffix} ${lastCriteriaText}`
+    : `${n} match${suffix} for ${lastCriteriaText.charAt(0).toLowerCase() + lastCriteriaText.slice(1)}`;
 }
 
 // Runs when "Verify These Against Real Addresses" is clicked. Looks each review row's address
@@ -811,6 +876,8 @@ document.getElementById("runSearch").addEventListener("click", ()=>{
   const resultsCard = document.getElementById("resultsCard");
   const reviewSection = document.getElementById("reviewSection");
   reviewSection.innerHTML = "";
+  document.getElementById("undoBanner").innerHTML = "";
+  lastRemoved = null;
   const isBounds = modeBoundsBtn.classList.contains("active");
 
   if(isBounds){
