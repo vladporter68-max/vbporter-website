@@ -387,6 +387,10 @@ root.innerHTML = `
     border-radius: 5px; font-size: 15px; line-height: 1; cursor: pointer; padding: 0;
   }
   .ss-remove-btn:hover, .ss-remove-btn:active { background: #FCEAEA; border-color: #E8A0A0; color: #A22; }
+  table.ss-table .ss-remove-col { width: 34px; padding-left: 8px; padding-right: 4px; text-align: center; vertical-align: middle; }
+  #undoBanner { position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 50; width: min(640px, 92vw); }
+  #undoBanner .ss-undo-banner { box-shadow: 0 4px 16px rgba(31,56,100,0.25); border: 1px solid #C9D6EA; }
+  @media print { #undoBanner { display: none; } }
   .ss-undo-banner {
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
     background: #EAF1FB; color: #1F3864; font-size: 12.5px; padding: 8px 12px;
@@ -494,6 +498,10 @@ root.innerHTML = `
     .ss-table th, .ss-table td { font-size: 12px; padding: 6px 5px; white-space: nowrap; }
     .ss-count { font-size: 14px; }
     .ss-link-btn { font-size: 14px; padding: 4px 0; }
+    .ss-remove-btn { width: 32px; height: 32px; font-size: 17px; }
+    #undoBanner .ss-undo-banner { font-size: 13px; padding: 10px 12px; }
+    #undoBanner .ss-undo-banner span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+    #undoBanner .ss-undo-banner button { padding: 10px 16px; font-size: 14px; }
   }
 </style>
 
@@ -770,10 +778,11 @@ function renderTable(list, columns){
   lastMainColumns = columns;
   const table = document.getElementById("resultsTable");
   if(list.length===0){ table.innerHTML = ""; return; }
-  let html = "<tr>" + columns.map(c=>`<th>${c}</th>`).join("") + "<th></th></tr>";
+  let html = "<tr><th class=\"ss-remove-col\"></th>" + columns.map(c=>`<th>${c}</th>`).join("") + "</tr>";
   list.forEach(r=>{
-    html += `<tr data-propno="${r.PropertyNo}">` + columns.map(c=>`<td>${r[c]!==undefined && r[c]!==null ? r[c] : ""}</td>`).join("")
-      + `<td><button type="button" class="ss-remove-btn" title="Remove this listing from the results" data-propno="${r.PropertyNo}">&times;</button></td></tr>`;
+    html += `<tr data-propno="${r.PropertyNo}">`
+      + `<td class="ss-remove-col"><button type="button" class="ss-remove-btn" title="Remove this listing from the results" data-propno="${r.PropertyNo}">&times;</button></td>`
+      + columns.map(c=>`<td>${r[c]!==undefined && r[c]!==null ? r[c] : ""}</td>`).join("") + `</tr>`;
   });
   table.innerHTML = html;
 }
@@ -792,12 +801,43 @@ function removeMainRow(propNo){
   showUndoBanner(lastRemoved.row);
 }
 
+// Same idea as removeMainRow, for the "needs review" table underneath. The row is hidden
+// (not deleted) so the background address check can keep updating the other rows' badges.
+function removeReviewRow(reviewArr, ridx){
+  const rec = reviewArr[ridx];
+  if(!rec || rec._removed) return;
+  rec._removed = true;
+  lastReview = lastReview.filter(r => r !== rec);
+  verifiedConfirmedRows = verifiedConfirmedRows.filter(r => r !== rec);
+  const tr = document.querySelector(`#reviewTable tr[data-ridx="${ridx}"]`);
+  if(tr) tr.style.display = "none";
+  lastRemoved = { row: rec, review: true, reviewArr, ridx };
+  updateReportButtonsState();
+  showUndoBanner(rec);
+}
+
+function undoReviewRemoval(info){
+  const rec = info.row;
+  rec._removed = false;
+  lastReview = info.reviewArr.filter(r => !r._removed);
+  if(rec._confirmed && !verifiedConfirmedRows.includes(rec)) verifiedConfirmedRows.push(rec);
+  const tr = document.querySelector(`#reviewTable tr[data-ridx="${info.ridx}"]`);
+  if(tr) tr.style.display = "";
+  updateReportButtonsState();
+}
+
 function showUndoBanner(row){
   const banner = document.getElementById("undoBanner");
   const label = row.Company ? `${row.Company} — ${row.Location}` : row.Location;
   banner.innerHTML = `<div class="ss-undo-banner"><span>Removed: ${label}</span><button type="button" id="undoRemoveBtn">Undo</button></div>`;
   document.getElementById("undoRemoveBtn").addEventListener("click", ()=>{
     if(!lastRemoved) return;
+    if(lastRemoved.review){
+      undoReviewRemoval(lastRemoved);
+      banner.innerHTML = "";
+      lastRemoved = null;
+      return;
+    }
     lastMain.splice(Math.min(lastRemoved.index, lastMain.length), 0, lastRemoved.row);
     renderTable(lastMain, lastMainColumns);
     refreshResultCountLabel();
@@ -856,7 +896,8 @@ async function verifyReviewRows(reviewRows, westBound, eastBound){
         const inRange = bracket.hiIdx >= loIdx && bracket.loIdx <= hiIdx;
         if(inRange){
           confirmedIn++;
-          verifiedConfirmedRows.push(rec);
+          rec._confirmed = true;
+          if(!rec._removed) verifiedConfirmedRows.push(rec);
           if(cell){ cell.innerHTML = `<span class="verify-badge confirmed">Confirmed</span><div class="verify-detail">Between ${bracket.loName} &amp; ${bracket.hiName} — added to Client Copy</div>`; }
         } else {
           confirmedOut++;
@@ -901,9 +942,13 @@ document.getElementById("runSearch").addEventListener("click", ()=>{
       reviewTable.id = "reviewTable";
       document.getElementById("reviewTableWrap").appendChild(reviewTable);
       const cols = DISPLAY_COLS.concat(["_ParsedStreet","_ParsedAvenue","_Confidence"]);
-      let html = "<tr>" + cols.map(c=>`<th>${c}</th>`).join("") + `<th>Address Check</th></tr>`;
-      review.forEach((r,i)=>{ html += `<tr data-ridx="${i}">` + cols.map(c=>`<td>${r[c]!==undefined&&r[c]!==null?r[c]:""}</td>`).join("") + `<td class="verify-status"><span class="verify-badge pending">Queued</span></td></tr>`; });
+      let html = `<tr><th class="ss-remove-col"></th>` + cols.map(c=>`<th>${c}</th>`).join("") + `<th>Address Check</th></tr>`;
+      review.forEach((r,i)=>{ html += `<tr data-ridx="${i}"><td class="ss-remove-col"><button type="button" class="ss-remove-btn ss-remove-review" title="Remove this listing from the results" data-ridx="${i}">&times;</button></td>` + cols.map(c=>`<td>${r[c]!==undefined&&r[c]!==null?r[c]:""}</td>`).join("") + `<td class="verify-status"><span class="verify-badge pending">Queued</span></td></tr>`; });
       reviewTable.innerHTML = html;
+      reviewTable.addEventListener("click", (e)=>{
+        const btn = e.target.closest(".ss-remove-review");
+        if(btn) removeReviewRow(review, Number(btn.dataset.ridx));
+      });
       verifyReviewRows(review, west, east); // runs automatically -- no click needed
     }
   } else {
